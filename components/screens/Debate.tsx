@@ -32,8 +32,18 @@ export default function Debate({ resumeId, activityId }: { resumeId?: string; ac
   // App rouverte directement sur cet écran après une coupure : on propose de reprendre.
   useEffect(() => {
     if (resumeId || rec.phase !== 'idle') return;
-    getInterruptedRecording().then((st) => {
-      if (st?.media?.status === 'enregistrement') setCut({ id: st.mediaId, seconds: st.savedSeconds });
+    getInterruptedRecording().then(async (st) => {
+      if (st?.media?.status !== 'enregistrement') return;
+      setCut({ id: st.mediaId, seconds: st.savedSeconds });
+      const recent = Date.now() - new Date(st.lastChunkAt).getTime() < 15 * 60_000;
+      if (recent) {
+        try {
+          await rec.start({ activityId: null, title: '', resumeMediaId: st.mediaId });
+          setCut(null);
+        } catch {
+          /* geste nécessaire : le bouton « Reprendre » reste affiché */
+        }
+      }
     });
   }, [resumeId, rec.phase]);
 
@@ -57,6 +67,14 @@ export default function Debate({ resumeId, activityId }: { resumeId?: string; ac
       if (document.visibilityState === 'visible' && rec.phase !== 'idle') {
         await rec.keepAwake();
         if (rec.phase !== 'interrupted' && !rec.micAlive()) await rec.markInterrupted();
+        // Reprise automatique : un seul geste en moins. Si l'iPhone redemande le micro, le bouton reste là.
+        if (rec.phase === 'interrupted' && rec.state) {
+          try {
+            await rec.start({ activityId: null, title: '', resumeMediaId: rec.state.mediaId });
+          } catch {
+            /* le bouton « Reprendre » reste affiché */
+          }
+        }
       }
     };
     document.addEventListener('visibilitychange', onVis);
@@ -133,7 +151,14 @@ export default function Debate({ resumeId, activityId }: { resumeId?: string; ac
         <div className="mt-6 space-y-1 text-sm text-nuit-400">
           <p>Format : {pickAudioMime() || 'par défaut du navigateur'}</p>
           {estimate && <p>Durée d'enregistrement possible avec l'espace libre : {estimate}</p>}
-          <p>Si l'écran doit être verrouillé : utilisez le Dictaphone de l'iPhone, puis « Importer ».</p>
+          <div className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4 text-[13px] leading-relaxed text-nuit-200">
+            <p className="font-semibold text-sable">Écran verrouillé ?</p>
+            <p className="mt-1">Sur iPhone, une app web ne peut pas enregistrer quand l'écran est verrouillé : Apple coupe le micro. Pour une longue session, utilisez le Dictaphone puis « Importer ».</p>
+            <div className="mt-3 flex gap-2">
+              <a href="voicememos://" className="press inline-flex min-h-[40px] flex-1 items-center justify-center rounded-xl bg-white/[0.07] px-3 font-semibold text-sable ring-1 ring-white/10">Ouvrir le Dictaphone</a>
+              <button onClick={() => go('importer')} className="press inline-flex min-h-[40px] flex-1 items-center justify-center rounded-xl bg-white/[0.07] px-3 font-semibold text-sable ring-1 ring-white/10">Importer un audio</button>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -148,6 +173,7 @@ export default function Debate({ resumeId, activityId }: { resumeId?: string; ac
           {rec.state?.partCount ?? 0} morceaux sauvegardés · {formatBytes(media?.size_bytes ?? 0)}
           {!rec.hasWakeLock() && ' · écran : gardez-le allumé'}
         </p>
+        {rec.muted && <p className="mt-2 text-center text-sm font-semibold text-red-400">Micro coupé par l'iPhone. Gardez l'app ouverte et l'écran allumé.</p>}
       </div>
       <div className={'flex flex-col items-center ' + (dim ? 'opacity-60' : '')}>
         <span className={rec.phase === 'recording' ? 'mb-3 h-3 w-3 animate-pulse rounded-full bg-red-600' : 'mb-3 h-3 w-3 rounded-full bg-neutral-600'} />

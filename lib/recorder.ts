@@ -25,6 +25,23 @@ export type RecPhase = 'idle' | 'recording' | 'paused' | 'interrupted';
 
 const STATE_KEY = 'recording_state';
 
+let silenceUrl: string | null = null;
+/** Une seconde de silence (WAV 8 kHz, 8 bits) : lue en boucle pour garder la session audio active. */
+function silentWavUrl(): string {
+  if (silenceUrl) return silenceUrl;
+  const rate = 8000;
+  const buf = new ArrayBuffer(44 + rate);
+  const v = new DataView(buf);
+  const w = (o: number, t: string) => [...t].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+  w(0, 'RIFF'); v.setUint32(4, 36 + rate, true); w(8, 'WAVE'); w(12, 'fmt ');
+  v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, rate, true); v.setUint32(28, rate, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true);
+  w(36, 'data'); v.setUint32(40, rate, true);
+  new Uint8Array(buf, 44).fill(128); // 128 = silence en PCM 8 bits
+  silenceUrl = URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+  return silenceUrl;
+}
+
 /** Format audio accepté par ce navigateur (Safari iOS : audio/mp4 = AAC). */
 export function pickAudioMime(): string {
   if (typeof MediaRecorder === 'undefined') return '';
@@ -56,6 +73,9 @@ export class DebateRecorder {
   private mime = '';
   private stopping = false;
   private pendingSave: Promise<void> = Promise.resolve();
+  private keepAlive: HTMLAudioElement | null = null;
+  /** L'iPhone a coupé le micro (verrouillage, appel…) : on le signale à l'écran. */
+  muted = false;
   onChange: () => void = () => {};
   onError: (msg: string) => void = () => {};
 
@@ -66,7 +86,20 @@ export class DebateRecorder {
     this.stream = await navigator.mediaDevices.getUserMedia({
       audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true, channelCount: 1 } as any,
     });
-    this.stream.getAudioTracks().forEach((t) => (t.onended = () => this.handleTrackEnded()));
+    this.muted = false;
+    this.stream.getAudioTracks().forEach((t) => {
+      t.onended = () => this.handleTrackEnded();
+      // Safari coupe le micro sans « ended » : la piste est alors muette et l'enregistrement serait vide.
+      t.onmute = () => {
+        this.muted = true;
+        if (this.phase === 'recording') this.flush();
+        this.onChange();
+      };
+      t.onunmute = () => {
+        this.muted = false;
+        this.onChange();
+      };
+    });
 
     if (opts.resumeMediaId) {
       const st = await getMeta<RecState>(STATE_KEY);
@@ -95,6 +128,7 @@ export class DebateRecorder {
     }
     await setMeta(STATE_KEY, this.state);
     await this.keepAwake();
+    this.startKeepAlive(opts.title);
     this.startChunk();
     this.phase = 'recording';
     this.onChange();
@@ -212,9 +246,48 @@ export class DebateRecorder {
     this.onChange();
   }
 
+  /**
+   * Essai d'arrière-plan : un son silencieux en boucle + une fiche « lecture en cours » sur l'écran verrouillé.
+   * Sur iPhone, Apple peut quand même couper le micro : on le détecte (muted / ended) et on propose de reprendre.
+   */
+  private startKeepAlive(title: string) {
+    try {
+      const a = new Audio(silentWavUrl());
+      a.loop = true;
+      (a as any).playsInline = true;
+      void a.play().catch(() => {});
+      this.keepAlive = a;
+      const ms = (navigator as any).mediaSession;
+      if (ms) {
+        ms.metadata = new (window as any).MediaMetadata({ title: title || 'Enregistrement en cours', artist: 'MIN Observateur' });
+        ms.playbackState = 'playing';
+        ms.setActionHandler?.('pause', () => void this.pause());
+        ms.setActionHandler?.('play', () => this.resume());
+      }
+    } catch {
+      /* non supporté : sans conséquence */
+    }
+  }
+
+  private stopKeepAlive() {
+    try {
+      this.keepAlive?.pause();
+      const ms = (navigator as any).mediaSession;
+      if (ms) {
+        ms.playbackState = 'none';
+        ms.metadata = null;
+        ms.setActionHandler?.('pause', null);
+        ms.setActionHandler?.('play', null);
+      }
+    } catch {
+      /* ignore */
+    }
+    this.keepAlive = null;
+  }
+
   /** Le micro est-il encore actif ? (Safari le coupe quand l'app passe en arrière-plan) */
   micAlive(): boolean {
-    return Boolean(this.stream?.getAudioTracks().some((t) => t.readyState === 'live'));
+    return Boolean(this.stream?.getAudioTracks().some((t) => t.readyState === 'live' && !t.muted));
   }
 
   /** Après une coupure : marque l'enregistrement comme interrompu (les morceaux restent). */
@@ -228,6 +301,7 @@ export class DebateRecorder {
   }
 
   private release() {
+    this.stopKeepAlive();
     this.stream?.getTracks().forEach((t) => t.stop());
     this.stream = null;
     this.rec = null;

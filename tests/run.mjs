@@ -118,19 +118,64 @@ await step('Mode Débat : enregistrement par morceaux puis Stop', async () => {
   await shot('04-audio-enregistre');
 });
 
-await step('Coupure pendant l’enregistrement (app fermée) puis reprise', async () => {
+const partCount = () => page.evaluate(() => new Promise((res) => {
+  const r = indexedDB.open('min-observateur');
+  r.onsuccess = () => {
+    const q = r.result.transaction('meta').objectStore('meta').get('recording_state');
+    q.onsuccess = () => res(q.result?.value?.partCount ?? 0);
+  };
+}));
+
+await step('Verrouillage court : l’app se rouvre et reprend l’enregistrement toute seule', async () => {
   await go('#/debat');
   await page.getByRole('button', { name: /Démarrer/ }).click();
   await page.waitForTimeout(5000);
-  const before = await page.evaluate(() => new Promise((res) => {
+  const before = await partCount();
+  if (before < 1) throw new Error('aucun morceau avant la coupure');
+  await page.reload(); // app fermée par l'iPhone
+  await page.getByText('Enregistrement en cours').waitFor({ timeout: 15000 });
+  await page.waitForTimeout(5000);
+  await page.getByRole('button', { name: 'Stop' }).click();
+  await page.waitForURL(/#\/media\//);
+  const n = Number((await page.getByText(/· \d+ morceaux/).first().innerText()).match(/(\d+) morceaux/)[1]);
+  console.log(`   ${before} morceau(x) avant, ${n} après la reprise automatique`);
+  if (n <= before) throw new Error(`morceaux après reprise (${n}) <= avant (${before})`);
+});
+
+await step('Micro coupé par l’iPhone : avertissement affiché, rien de perdu', async () => {
+  await go('#/debat');
+  await page.getByRole('button', { name: /Démarrer/ }).click();
+  await page.getByText('Enregistrement en cours').waitFor();
+  await page.waitForTimeout(1500);
+  await page.evaluate(() => window.__minTest.rec.stream.getAudioTracks()[0].dispatchEvent(new Event('mute')));
+  await page.getByText(/Micro coupé par l.iPhone/).waitFor({ timeout: 5000 });
+  await shot('05b-micro-coupe');
+  await page.evaluate(() => window.__minTest.rec.stream.getAudioTracks()[0].dispatchEvent(new Event('unmute')));
+  await page.getByText(/Micro coupé par l.iPhone/).waitFor({ state: 'detached', timeout: 5000 });
+  await page.waitForTimeout(2500);
+  await page.getByRole('button', { name: 'Stop' }).click();
+  await page.waitForURL(/#\/media\//);
+});
+
+await step('Longue coupure : l’app le dit clairement et propose de reprendre', async () => {
+  await go('#/debat');
+  await page.getByRole('button', { name: /Démarrer/ }).click();
+  await page.waitForTimeout(5000);
+  const before = await partCount();
+  if (before < 1) throw new Error('aucun morceau avant la coupure');
+  // La coupure date d'il y a une heure : pas de reprise automatique.
+  await page.evaluate(() => new Promise((res) => {
     const r = indexedDB.open('min-observateur');
     r.onsuccess = () => {
-      const tx = r.result.transaction('meta').objectStore('meta').get('recording_state');
-      tx.onsuccess = () => res(tx.result?.value?.partCount ?? 0);
+      const st = r.result.transaction('meta', 'readwrite').objectStore('meta');
+      const g = st.get('recording_state');
+      g.onsuccess = () => {
+        g.result.value.lastChunkAt = new Date(Date.now() - 3600_000).toISOString();
+        st.put(g.result).onsuccess = () => res();
+      };
     };
   }));
-  if (before < 1) throw new Error('aucun morceau avant la coupure');
-  await page.reload(); // simule l'app tuée
+  await page.reload();
   await page.getByText('Enregistrement coupé').waitFor({ timeout: 10000 });
   await shot('05-coupure-detectee');
   await page.getByRole('button', { name: /Reprendre/ }).first().click();
@@ -138,8 +183,7 @@ await step('Coupure pendant l’enregistrement (app fermée) puis reprise', asyn
   await page.waitForTimeout(5000);
   await page.getByRole('button', { name: 'Stop' }).click();
   await page.waitForURL(/#\/media\//);
-  const parts = await page.getByText(/· \d+ morceaux/).first().innerText();
-  const n = Number(parts.match(/(\d+) morceaux/)[1]);
+  const n = Number((await page.getByText(/· \d+ morceaux/).first().innerText()).match(/(\d+) morceaux/)[1]);
   console.log(`   ${before} morceau(x) avant la coupure, ${n} au total après reprise`);
   if (n <= before) throw new Error(`morceaux après reprise (${n}) <= avant (${before})`);
 });

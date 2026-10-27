@@ -9,7 +9,7 @@ import { AUTH_LINK_TYPE, initSession } from '@/lib/session';
 import SetPassword from './screens/SetPassword';
 import { startAutoSync } from '@/lib/sync';
 import { AuthorFilterContext, go, useMe, useRoute, useSyncStatus, type AuthorFilter } from './hooks';
-import { useRecorder } from './recorderStore';
+import { recorder, useRecorder } from './recorderStore';
 import { cx, Toast, useToastHost } from './ui';
 import Login from './screens/Login';
 import Now from './screens/Now';
@@ -75,6 +75,7 @@ export default function App() {
       }
       // Point d'accès pour les tests automatiques (exports).
       (window as any).__minTest = {
+        rec: recorder,
         exportDocx: async (title: string, md: string, o?: { withPhotos?: boolean }) => {
           const [{ exportDocx }, { db }] = await Promise.all([import('@/lib/export'), import('@/lib/db')]);
           const media = o?.withPhotos ? (await db().media.toArray()).filter((m) => m.thumb_path && !m.deleted_at) : [];
