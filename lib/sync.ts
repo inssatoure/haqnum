@@ -10,6 +10,7 @@ import { db, getMeta, setMeta } from './db';
 import { currentUser } from './session';
 import { accessToken, supabase } from './supabase';
 import { SYNC_TABLES, type LocalBlob, type SyncTable } from './types';
+import { uploadToR2, isR2Enabled } from './storage-client';
 
 export interface SyncStatus {
   running: boolean;
@@ -214,6 +215,11 @@ async function uploadPending() {
 async function uploadBlob(b: LocalBlob, onPct: (n: number) => void) {
   const token = await accessToken();
   if (!token) throw new Error('Session expirée');
+  // Cloudflare R2 (si activé sur le serveur) : pas de limite de 50 Mo, envoi reprenable.
+  if (await isR2Enabled()) {
+    await uploadToR2(b, onPct);
+    return;
+  }
   // Petits fichiers : envoi direct, plus rapide.
   if (b.blob.size < 5 * 1024 * 1024) {
     const sb = supabase()!;

@@ -1,6 +1,6 @@
 import 'server-only';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { BUCKET } from './supabase';
+import { download } from './storage';
 
 // Construit le « corpus » : toutes les observations, chacune avec une étiquette de source
 // du type [Moctar, audio 14:32] que l'IA doit citer.
@@ -185,7 +185,7 @@ export async function buildCorpus(sb: SupabaseClient, scope: Scope, opts: { maxI
 export async function loadImages(sb: SupabaseClient, images: CorpusImage[]): Promise<{ label: string; base64: string }[]> {
   const res = await Promise.all(
     images.map(async (im) => {
-      const { data } = await sb.storage.from(BUCKET).download(im.path);
+      const data = await download(sb, im.path);
       if (!data) return null;
       const buf = Buffer.from(await data.arrayBuffer());
       if (buf.length > 4.5 * 1024 * 1024) return null;

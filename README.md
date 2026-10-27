@@ -29,6 +29,9 @@ Deux observateurs (Issa Touré, Moctar Sidibé), une IA analyste.
 | `GROQ_API_KEY` | clé Groq (transcription) |
 | `ANTHROPIC_API_KEY` | clé Anthropic (analyse) |
 | `ANTHROPIC_MODEL` | `claude-opus-5-5` (facultatif) |
+| `GEMINI_API_KEY` | clé Gemini (analyse, moteur par défaut) |
+| `GEMINI_MODEL` | `gemini-3-flash-preview` |
+| `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` | Cloudflare R2 : stockage des photos/vidéos/audios (sans limite de 50 Mo) |
 | `PYANNOTE_API_KEY` | facultatif : séparation des voix |
 
 4. **Deploy**. Le lien ressemble à `https://min-observateur.vercel.app`.

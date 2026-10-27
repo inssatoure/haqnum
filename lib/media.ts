@@ -7,6 +7,7 @@ import { db } from './db';
 import { currentUser } from './session';
 import { supabase } from './supabase';
 import { requestSync } from './sync';
+import { r2ReadUrl, isR2Enabled } from './storage-client';
 
 export function extFromMime(mime: string, fallbackName?: string): string {
   const fromName = fallbackName?.split('.').pop()?.toLowerCase();
@@ -59,6 +60,11 @@ export async function mediaUrl(path: string | null | undefined): Promise<string 
   }
   const sb = supabase();
   if (!sb) return null;
+  if (await isR2Enabled()) {
+    const u = await r2ReadUrl(path);
+    if (u) urlCache.set(path, u);
+    return u;
+  }
   const { data } = await sb.storage.from(BUCKET).createSignedUrl(path, 60 * 60 * 6);
   if (data?.signedUrl) {
     urlCache.set(path, data.signedUrl);
@@ -73,6 +79,12 @@ export async function fetchBlob(path: string): Promise<Blob | null> {
   if (local?.blob) return local.blob;
   const sb = supabase();
   if (!sb) return null;
+  if (await isR2Enabled()) {
+    const u = await r2ReadUrl(path);
+    if (!u) return null;
+    const r = await fetch(u);
+    return r.ok ? await r.blob() : null;
+  }
   const { data } = await sb.storage.from(BUCKET).download(path);
   return data ?? null;
 }

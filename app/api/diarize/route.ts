@@ -3,7 +3,8 @@
 // GET ?job=… : renvoie l'état et les tours de parole.
 
 import { concatAudio } from '@/lib/server/ffmpeg';
-import { BUCKET, errorResponse, HttpError, requireUser, signedUrl, supabaseForRequest } from '@/lib/server/supabase';
+import { readUrl, upload } from '@/lib/server/storage';
+import { errorResponse, HttpError, requireUser, supabaseForRequest } from '@/lib/server/supabase';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
@@ -26,12 +27,11 @@ export async function POST(req: Request) {
     if (error || !m) throw new HttpError(404, 'Média introuvable sur le serveur');
     const parts = (m.parts ?? []) as { path: string }[];
     if (!parts.length) throw new HttpError(400, 'Aucun fichier');
-    const urls = await Promise.all(parts.map((p) => signedUrl(sb, p.path)));
+    const urls = await Promise.all(parts.map((p) => readUrl(sb, p.path)));
     const mp3 = await concatAudio(urls);
     const path = `${mission_id}/${user.id}/diarize/${media_id}.mp3`;
-    const up = await sb.storage.from(BUCKET).upload(path, new Blob([new Uint8Array(mp3)], { type: 'audio/mpeg' }), { upsert: true, contentType: 'audio/mpeg' });
-    if (up.error) throw new HttpError(500, up.error.message);
-    const url = await signedUrl(sb, path, 6 * 3600);
+    await upload(sb, path, new Blob([new Uint8Array(mp3)], { type: 'audio/mpeg' }), 'audio/mpeg');
+    const url = await readUrl(sb, path, 6 * 3600);
     const r = await fetch(`${API}/diarize`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${k}`, 'Content-Type': 'application/json' },

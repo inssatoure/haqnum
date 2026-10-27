@@ -9,6 +9,7 @@ export async function GET() {
     gemini: Boolean(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY),
     gemini_model: process.env.GEMINI_MODEL || 'gemini-3-flash-preview',
     default_engine: process.env.AI_DEFAULT_ENGINE || 'gemini',
+    r2: Boolean(process.env.R2_ACCOUNT_ID && process.env.R2_ACCESS_KEY_ID && process.env.R2_SECRET_ACCESS_KEY && process.env.R2_BUCKET),
     pyannote: Boolean(process.env.PYANNOTE_API_KEY),
     model: process.env.ANTHROPIC_MODEL || 'claude-opus-5-5',
   });

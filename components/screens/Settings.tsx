@@ -87,6 +87,7 @@ export default function Settings() {
           <H2>Serveur</H2>
           <Card className="text-sm">
             <p>Base de données : {health.supabase ? 'OK' : 'non configurée'}</p>
+            <p>Stockage des fichiers : {health.r2 ? 'Cloudflare R2 (gros fichiers OK)' : 'Supabase (50 Mo max par fichier)'}</p>
             <p>Transcription (Groq) : {health.groq ? 'OK' : 'clé manquante'}</p>
             <p>Analyse Gemini : {health.gemini ? `OK (${health.gemini_model})` : 'clé manquante'}</p>
             <p>Analyse Claude : {health.anthropic ? `OK (${health.model})` : 'clé manquante'}</p>

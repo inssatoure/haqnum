@@ -3,7 +3,8 @@
 
 import { audioWindow } from '@/lib/server/ffmpeg';
 import { GROQ_DIRECT_EXT, whisper } from '@/lib/server/groq';
-import { errorResponse, HttpError, requireUser, signedUrl, supabaseForRequest } from '@/lib/server/supabase';
+import { assertMember, readUrl } from '@/lib/server/storage';
+import { errorResponse, HttpError, requireUser, supabaseForRequest } from '@/lib/server/supabase';
 
 export const runtime = 'nodejs';
 export const maxDuration = 300;
@@ -14,7 +15,8 @@ export async function POST(req: Request) {
     await requireUser(sb);
     const body = (await req.json()) as { path: string; size?: number; start?: number; duration?: number; language?: string };
     if (!body.path) throw new HttpError(400, 'path manquant');
-    const url = await signedUrl(sb, body.path, 3600);
+    await assertMember(sb, body.path);
+    const url = await readUrl(sb, body.path, 3600);
     const ext = (body.path.split('.').pop() ?? '').toLowerCase();
     const direct = body.start == null && GROQ_DIRECT_EXT.includes(ext) && (body.size ?? 0) > 0 && (body.size ?? 0) < 24 * 1024 * 1024;
 
