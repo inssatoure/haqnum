@@ -88,3 +88,9 @@ export function distanceKm(a: { lat: number; lng: number }, b: { lat: number; ln
   const x = Math.sin(dLat / 2) ** 2 + Math.cos((a.lat * Math.PI) / 180) * Math.cos((b.lat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(x));
 }
+
+/** Libellé court pour les boutons de jour : « Jeu. 29 ». */
+export function jourPill(dayKeyStr: string): string {
+  const s = jourCourt(dayKeyStr + 'T12:00:00Z');
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}

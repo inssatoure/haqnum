@@ -23,14 +23,16 @@ export default function Login() {
   };
 
   return (
-    <div className="safe-top mx-auto flex min-h-screen max-w-md flex-col justify-center px-6">
-      <p className="text-sm uppercase tracking-widest text-ocre-400">Chroniques · MIN 2026</p>
-      <h1 className="mt-2 font-titre text-4xl text-sable">MIN Observateur</h1>
-      <p className="mt-3 text-nuit-200">Deux observateurs, une IA analyste. Tout ce que vous voyez, entendez et rencontrez, rangé et partagé.</p>
+    <div className="safe-top relative mx-auto flex min-h-screen max-w-md flex-col justify-center overflow-hidden px-6">
+      <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-ocre-500/15 blur-3xl" />
+      <span className="relative mb-6 flex h-14 w-14 items-center justify-center rounded-[18px] bg-gradient-to-b from-ocre-400 to-ocre-600 font-titre text-2xl text-nuit-950 shadow-[0_1px_0_rgba(255,255,255,0.4)_inset,0_16px_40px_-16px_rgba(207,143,69,0.9)]">M</span>
+      <p className="relative text-[12px] font-bold uppercase tracking-[0.2em] text-ocre-400">Chroniques · MIN 2026</p>
+      <h1 className="relative mt-2 font-titre text-[40px] leading-[1.05] text-sable">MIN Observateur</h1>
+      <p className="relative mt-4 text-[16px] leading-relaxed text-nuit-200">Deux observateurs, une IA analyste. Ce que vous voyez, entendez et rencontrez, rangé et partagé.</p>
 
       {isConfigured() ? (
         <form
-          className="mt-8"
+          className="relative mt-10"
           onSubmit={async (e) => {
             e.preventDefault();
             if (mode === 'password') await run(() => signIn(email, password));
@@ -57,13 +59,13 @@ export default function Login() {
           <Btn type="submit" big className="w-full" disabled={busy}>
             {busy ? '…' : mode === 'password' ? 'Se connecter' : mode === 'code' ? 'Recevoir un code' : 'Valider le code'}
           </Btn>
-          <button type="button" className="mt-4 w-full text-center text-sm text-nuit-400 underline" onClick={() => setMode(mode === 'password' ? 'code' : 'password')}>
+          <button type="button" className="mt-5 w-full text-center text-[14px] text-nuit-400" onClick={() => setMode(mode === 'password' ? 'code' : 'password')}>
             {mode === 'password' ? 'Se connecter avec un code par e-mail' : 'Se connecter avec un mot de passe'}
           </button>
           {mode === 'password' && (
             <button
               type="button"
-              className="mt-3 w-full text-center text-sm text-nuit-400 underline"
+              className="mt-3 w-full text-center text-[14px] text-nuit-400"
               onClick={async () => {
                 if (!email.trim()) return setErr('Indiquez d’abord votre e-mail.');
                 const e = await run(() => sendPasswordReset(email));

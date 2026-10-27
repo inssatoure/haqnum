@@ -52,7 +52,7 @@ export default function Analyst() {
       {history.length === 0 && (
         <div className="mb-4 flex flex-wrap gap-2">
           {EXAMPLES.map((e) => (
-            <button key={e} onClick={() => ask(e)} className="rounded-full bg-nuit-900 px-3 py-2 text-left text-sm text-nuit-200">{e}</button>
+            <button key={e} onClick={() => ask(e)} className="rounded-full bg-white/[0.03] px-3 py-2 text-left text-sm text-nuit-200">{e}</button>
           ))}
         </div>
       )}
@@ -60,7 +60,7 @@ export default function Analyst() {
         {history.map((h) => (
           <div key={h.id}>
             <p className="ml-auto w-fit max-w-[85%] rounded-2xl bg-ocre-500 px-3 py-2 text-nuit-950">{h.title}</p>
-            <div className="mt-2 rounded-2xl bg-nuit-900 p-3 text-sm"><Markdown text={h.markdown ?? ''} /></div>
+            <div className="mt-2 rounded-2xl bg-white/[0.03] p-3 text-sm"><Markdown text={h.markdown ?? ''} /></div>
           </div>
         ))}
       </div>

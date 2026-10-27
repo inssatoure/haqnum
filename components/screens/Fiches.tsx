@@ -18,7 +18,7 @@ export default function Fiches({ type }: { type?: string }) {
       <Title sub="Le cœur de la mission : comprendre le fond.">Fiches</Title>
       <div className="-mx-4 mb-3 flex gap-2 overflow-x-auto px-4">
         {Object.entries(FICHE_TYPES).map(([k, v]) => (
-          <button key={k} onClick={() => go(`fiches?type=${k}`)} className={cx('shrink-0 rounded-full px-4 py-2 text-sm font-semibold', k === t ? 'bg-ocre-500 text-nuit-950' : 'bg-nuit-900 text-nuit-200')}>
+          <button key={k} onClick={() => go(`fiches?type=${k}`)} className={cx('shrink-0 rounded-full px-4 py-2 text-sm font-semibold', k === t ? 'bg-ocre-500 text-nuit-950' : 'bg-white/[0.03] text-nuit-200')}>
             {v.label}
           </button>
         ))}

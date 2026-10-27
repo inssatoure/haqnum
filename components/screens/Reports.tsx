@@ -128,7 +128,7 @@ export default function Reports() {
 function ReportItem({ r, open, onToggle }: { r: Report; open: boolean; onToggle: () => void }) {
   const [busy, setBusy] = useState(false);
   return (
-    <div className="rounded-2xl border border-nuit-700 bg-nuit-900">
+    <div className="rounded-[20px] border border-white/[0.06] bg-white/[0.03] shadow-carte">
       <button className="flex w-full items-center justify-between gap-2 p-3 text-left" onClick={onToggle}>
         <span>
           <span className="font-semibold">{r.title}</span>
@@ -137,7 +137,7 @@ function ReportItem({ r, open, onToggle }: { r: Report; open: boolean; onToggle:
         <AuthorBadge authorId={r.author_id} small />
       </button>
       {open && (
-        <div className="border-t border-nuit-700 p-3">
+        <div className="border-t border-white/[0.07] p-3">
           <div className="no-print mb-3 flex flex-wrap gap-2">
             <Btn tone="nuit" disabled={busy} onClick={async () => {
               setBusy(true);

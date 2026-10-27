@@ -98,7 +98,7 @@ function ContactForm({ c, defaultActivity, media }: { c?: Contact; defaultActivi
       <Field label="Projets liés">
         <div className="flex flex-wrap gap-2">
           {PROJECTS.map((p) => (
-            <button key={p} type="button" onClick={() => setF({ ...f, projects: f.projects.includes(p) ? f.projects.filter((x) => x !== p) : [...f.projects, p] })} className={cx('rounded-full px-3 py-1.5 text-sm', f.projects.includes(p) ? 'bg-ocre-500 text-nuit-950' : 'bg-nuit-800 text-nuit-200')}>
+            <button key={p} type="button" onClick={() => setF({ ...f, projects: f.projects.includes(p) ? f.projects.filter((x) => x !== p) : [...f.projects, p] })} className={cx('rounded-full px-3 py-1.5 text-sm', f.projects.includes(p) ? 'bg-ocre-500 text-nuit-950' : 'bg-white/[0.05] text-nuit-200')}>
               {p}
             </button>
           ))}

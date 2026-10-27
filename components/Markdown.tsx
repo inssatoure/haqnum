@@ -16,7 +16,7 @@ function inline(text: string, key: string): ReactNode[] {
     if (t.startsWith('**')) out.push(<strong key={`${key}-${i++}`}>{t.slice(2, -2)}</strong>);
     else if (t.startsWith('[')) {
       const lower = t.toLowerCase();
-      const cls = lower.startsWith('[moctar') ? 'bg-moctar/20 text-moctar' : lower.startsWith('[issa') ? 'bg-issa/20 text-issa' : 'bg-nuit-700 text-nuit-200';
+      const cls = lower.startsWith('[moctar') ? 'bg-moctar/20 text-moctar' : lower.startsWith('[issa') ? 'bg-issa/20 text-issa' : 'bg-white/[0.08] text-nuit-200';
       out.push(<span key={`${key}-${i++}`} className={`mx-0.5 whitespace-nowrap rounded px-1 text-[0.8em] font-semibold ${cls}`}>{t}</span>);
     } else out.push(<em key={`${key}-${i++}`}>{t.slice(1, -1)}</em>);
     last = m.index + t.length;

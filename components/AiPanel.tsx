@@ -45,7 +45,7 @@ export function AiPanel({ activityId, day }: { activityId?: string; day?: string
       {busy && <p className="mt-2 animate-pulse text-sm text-ocre-400">{busy} en cours… (1 à 3 min)</p>}
       <div className="mt-3 space-y-2">
         {list.map((a) => (
-          <div key={a.id} className="rounded-2xl border border-nuit-700 bg-nuit-900">
+          <div key={a.id} className="rounded-[20px] border border-white/[0.06] bg-white/[0.03] shadow-carte">
             <button className="flex w-full items-center justify-between p-3 text-left" onClick={() => setOpen(open === a.id ? null : a.id)}>
               <span>
                 <span className="font-semibold">{a.title}</span>
@@ -54,7 +54,7 @@ export function AiPanel({ activityId, day }: { activityId?: string; day?: string
               <AuthorBadge authorId={a.author_id} small />
             </button>
             {open === a.id && a.markdown && (
-              <div className="border-t border-nuit-700 p-3 text-sm">
+              <div className="border-t border-white/[0.07] p-3 text-sm">
                 <Markdown text={a.markdown} />
               </div>
             )}

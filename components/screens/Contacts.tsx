@@ -73,13 +73,13 @@ export default function Contacts() {
       </div>
       <div className="mb-3 flex gap-2">
         {(['tous', 'rencontres', 'reference'] as const).map((k) => (
-          <button key={k} onClick={() => setCat(k)} className={cx('rounded-full px-3 py-1.5 text-sm', cat === k ? 'bg-ocre-500 text-nuit-950' : 'bg-nuit-900 text-nuit-200')}>
+          <button key={k} onClick={() => setCat(k)} className={cx('rounded-full px-3 py-1.5 text-sm', cat === k ? 'bg-ocre-500 text-nuit-950' : 'bg-white/[0.03] text-nuit-200')}>
             {k === 'tous' ? 'Tous' : k === 'rencontres' ? 'Nos rencontres' : 'Organisateurs / délégation'}
           </button>
         ))}
       </div>
       <AuthorFilterBar />
-      <div className="divide-y divide-nuit-800 rounded-2xl border border-nuit-700 bg-nuit-900">
+      <div className="divide-y divide-white/[0.05] rounded-[20px] border border-white/[0.06] bg-white/[0.03] shadow-carte">
         {shown.map((c) => <Row key={c.id} c={c} />)}
         {!shown.length && <p className="p-4 text-sm text-nuit-400">Aucun contact.</p>}
       </div>
@@ -99,8 +99,8 @@ export default function Contacts() {
 
 function Row({ c }: { c: Contact }) {
   return (
-    <button onClick={() => go(`contact/${c.id}`)} className="flex w-full items-center gap-3 p-3 text-left active:bg-nuit-800">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-nuit-700 font-titre text-sable">{c.name.slice(0, 1)}</span>
+    <button onClick={() => go(`contact/${c.id}`)} className="flex w-full items-center gap-3 p-3 text-left active:bg-white/[0.06]">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/[0.08] font-titre text-sable">{c.name.slice(0, 1)}</span>
       <span className="min-w-0 flex-1">
         <span className="block truncate font-semibold">{c.name}</span>
         <span className="block truncate text-xs text-nuit-400">{[c.role, c.organization, c.country].filter(Boolean).join(' · ')}</span>

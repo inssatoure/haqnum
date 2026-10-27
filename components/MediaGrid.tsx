@@ -12,7 +12,7 @@ export function MediaGrid({ items }: { items: Media[] }) {
   return (
     <div className="grid grid-cols-3 gap-2">
       {items.map((m) => (
-        <button key={m.id} onClick={() => go(`media/${m.id}`)} className="relative aspect-square overflow-hidden rounded-xl bg-nuit-800 text-left">
+        <button key={m.id} onClick={() => go(`media/${m.id}`)} className="relative aspect-square overflow-hidden rounded-xl bg-white/[0.05] text-left">
           {m.thumb_path ? (
             <Thumb path={m.thumb_path} className="h-full w-full" />
           ) : (
@@ -38,7 +38,7 @@ export function NotesList({ notes }: { notes: Note[] }) {
   return (
     <div className="space-y-2">
       {notes.map((n) => (
-        <div key={n.id} className="rounded-xl bg-nuit-900 p-3">
+        <div key={n.id} className="rounded-xl bg-white/[0.03] p-3">
           <div className="mb-1 flex items-center gap-2 text-xs text-nuit-400">
             <AuthorBadge authorId={n.author_id} small /> {heure(n.created_at)}
           </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { isConfigured, MISSION_ID } from './config';
+import { isConfigured, IS_SANDBOX, MISSION_ID, sandboxId } from './config';
 import { db, getMeta, setMeta } from './db';
 import { supabase } from './supabase';
 import type { Profile } from './types';
@@ -43,9 +43,12 @@ export function deviceName(): string {
 /** Charge le programme officiel en local si la base locale est vide. */
 export async function ensureSeed() {
   const d = db();
-  if ((await d.activities.count()) === 0) await d.activities.bulkPut(seed.activities as any);
-  if ((await d.contacts.count()) === 0) await d.contacts.bulkPut(seed.contacts as any);
-  if ((await d.fiches.count()) === 0) await d.fiches.bulkPut(seed.fiches as any);
+  // Bac à sable : mêmes données de référence, avec des identifiants et une mission propres.
+  const map = <T extends { id: string; mission_id: string }>(rows: T[]): T[] =>
+    IS_SANDBOX ? rows.map((r) => ({ ...r, id: sandboxId(r.id), mission_id: MISSION_ID })) : rows;
+  if ((await d.activities.count()) === 0) await d.activities.bulkPut(map(seed.activities as any));
+  if ((await d.contacts.count()) === 0) await d.contacts.bulkPut(map(seed.contacts as any));
+  if ((await d.fiches.count()) === 0) await d.fiches.bulkPut(map(seed.fiches as any));
 }
 
 export async function initSession(): Promise<Me | null> {

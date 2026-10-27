@@ -2,6 +2,7 @@
 
 import { CalendarDays, Camera, Home, Menu, Mic, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { IS_SANDBOX, setSandbox } from '@/lib/config';
 import { formatDuration } from '@/lib/media';
 import { getInterruptedRecording } from '@/lib/recorder';
 import { AUTH_LINK_TYPE, initSession } from '@/lib/session';
@@ -87,32 +88,33 @@ export default function App() {
     })();
   }, []);
 
-  if (!ready) return <div className="flex min-h-screen items-center justify-center font-titre text-xl text-ocre-400">MIN Observateur…</div>;
+  if (!ready) return <div className="flex min-h-screen items-center justify-center font-titre text-xl text-ocre-400"><span className="animate-pulse">MIN Observateur</span></div>;
   if (!me) return <Login />;
   if (needPassword) return <SetPassword onDone={() => { setNeedPassword(false); window.location.hash = '#/maintenant'; }} />;
 
   return (
     <AuthorFilterContext.Provider value={{ value: filter, set: setFilter }}>
       <Toast msg={toastMsg} />
-      <div className="mx-auto min-h-screen max-w-xl pb-32">
+      <div className="mx-auto min-h-screen max-w-xl pb-40">
         <Header />
+        <SandboxBanner />
         {interrupted && route.name !== 'debat' && (
-          <div className="mx-4 mb-3 rounded-2xl border border-red-500 bg-red-950/60 p-4">
+          <div className="mx-4 mb-4 rounded-[20px] border border-red-500/40 bg-red-500/[0.08] p-4">
             <p className="font-semibold text-red-200">Enregistrement coupé</p>
             <p className="mt-1 text-sm text-red-100">
               L'enregistrement s'est arrêté (appel, verrouillage ou app fermée). {formatDuration(interrupted.seconds)} sont sauvegardées.
             </p>
             <div className="mt-3 flex gap-2">
-              <button className="rounded-xl bg-red-600 px-4 py-2 font-semibold text-white" onClick={() => { go(`debat?reprendre=${interrupted.mediaId}`); setInterrupted(null); }}>
+              <button className="press rounded-xl bg-red-600 px-4 py-2 font-semibold text-white" onClick={() => { go(`debat?reprendre=${interrupted.mediaId}`); setInterrupted(null); }}>
                 Reprendre
               </button>
-              <button className="rounded-xl bg-nuit-700 px-4 py-2 font-semibold text-sable" onClick={async () => { const { closeInterrupted } = await import('@/lib/recorder'); await closeInterrupted(interrupted.mediaId); setInterrupted(null); }}>
+              <button className="press rounded-xl bg-white/[0.07] px-4 py-2 font-semibold text-sable ring-1 ring-white/10" onClick={async () => { const { closeInterrupted } = await import('@/lib/recorder'); await closeInterrupted(interrupted.mediaId); setInterrupted(null); }}>
                 Garder tel quel
               </button>
             </div>
           </div>
         )}
-        <main className="px-4">
+        <main key={route.name + (route.id ?? '')} className="animate-apparait px-4">
           <Screen name={route.name} id={route.id} query={route.query} />
         </main>
       </div>
@@ -151,20 +153,40 @@ function Header() {
   const pending = s.pendingRows + s.pendingFiles;
   let label = 'À jour';
   let dot = 'bg-emerald-400';
-  if (!s.online) { label = `Hors ligne${pending ? ` · ${pending} en attente` : ''}`; dot = 'bg-nuit-400'; }
-  else if (s.running) { label = s.uploading ? `Envoi ${s.uploadPct}%` : 'Synchronisation…'; dot = 'bg-ocre-400 animate-pulse'; }
+  if (!s.online) { label = `Hors ligne${pending ? ` · ${pending}` : ''}`; dot = 'bg-nuit-400'; }
+  else if (s.running) { label = s.uploading ? `Envoi ${s.uploadPct}%` : 'Synchro…'; dot = 'bg-ocre-400 animate-pulse'; }
   else if (pending) { label = `${pending} en attente`; dot = 'bg-ocre-400'; }
   if (s.error) { label = 'Erreur de synchro'; dot = 'bg-red-500'; }
   return (
-    <header className="safe-top sticky top-0 z-30 mb-3 bg-nuit-950/95 px-4 pb-2 backdrop-blur">
-      <div className="flex items-center justify-between pt-2">
-        <button onClick={() => go('maintenant')} className="font-titre text-lg text-ocre-400">MIN Observateur</button>
-        <button onClick={() => go('reglages')} className="flex items-center gap-2 rounded-full bg-nuit-900 px-3 py-1.5 text-xs text-nuit-200">
-          <span className={cx('h-2 w-2 rounded-full', dot)} />
+    <header className="safe-top sticky top-0 z-30 mb-4 border-b border-white/[0.04] bg-nuit-950/75 px-4 pb-3 backdrop-blur-xl">
+      <div className="flex items-center justify-between pt-3">
+        <button onClick={() => go('maintenant')} className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-ocre-400 to-ocre-600 font-titre text-[15px] text-nuit-950 shadow-[0_1px_0_rgba(255,255,255,0.35)_inset]">M</span>
+          <span className="text-left leading-tight">
+            <span className="block font-titre text-[16px] text-sable">MIN Observateur</span>
+            <span className="block text-[10.5px] font-semibold uppercase tracking-[0.16em] text-nuit-400">{IS_SANDBOX ? 'Bac à sable' : 'Chroniques 2026'}</span>
+          </span>
+        </button>
+        <button onClick={() => go('reglages')} className="press flex items-center gap-2 rounded-full bg-white/[0.05] px-3 py-1.5 text-[12px] font-semibold text-nuit-200 ring-1 ring-white/[0.07]">
+          <span className={cx('h-1.5 w-1.5 rounded-full', dot)} />
           {label}
         </button>
       </div>
     </header>
+  );
+}
+
+function SandboxBanner() {
+  if (!IS_SANDBOX) return null;
+  return (
+    <div className="mx-4 mb-4 flex items-center justify-between gap-3 rounded-2xl border border-dashed border-ocre-500/40 bg-ocre-500/[0.07] px-4 py-3">
+      <p className="text-[13px] leading-snug text-ocre-200">
+        <span className="font-bold">Bac à sable.</span> Données de test, gardées à part de la vraie mission.
+      </p>
+      <button onClick={() => setSandbox(false)} className="press shrink-0 rounded-full bg-ocre-500/20 px-3 py-1.5 text-[12px] font-semibold text-ocre-200 ring-1 ring-ocre-500/40">
+        Quitter
+      </button>
+    </div>
   );
 }
 
@@ -176,13 +198,15 @@ function RecordFab() {
       onClick={() => go('debat')}
       aria-label="Enregistrer"
       className={cx(
-        'fixed right-4 z-40 flex items-center gap-2 rounded-full px-5 py-4 font-semibold shadow-xl',
-        'bottom-[calc(env(safe-area-inset-bottom)+84px)]',
-        active ? 'bg-red-600 text-white rec-pulse' : 'bg-terre-500 text-sable',
+        'press fixed right-4 z-40 flex h-12 items-center gap-2 rounded-full pl-3.5 pr-4 text-[14px] font-semibold shadow-flottant backdrop-blur-xl',
+        'bottom-[calc(env(safe-area-inset-bottom)+96px)]',
+        active ? 'rec-pulse bg-red-600 text-white' : 'bg-nuit-800/90 text-sable ring-1 ring-white/10',
       )}
     >
-      <Mic size={22} />
-      {rec.phase === 'recording' ? `REC ${formatDuration(rec.elapsed())}` : rec.phase === 'paused' ? 'En pause' : 'Enregistrer'}
+      <span className={cx('flex h-7 w-7 items-center justify-center rounded-full', active ? 'bg-white/20' : 'bg-red-500/90 text-white')}>
+        <Mic size={15} strokeWidth={2.2} />
+      </span>
+      <span className="tabular-nums">{rec.phase === 'recording' ? formatDuration(rec.elapsed()) : rec.phase === 'paused' ? 'En pause' : 'Enregistrer'}</span>
     </button>
   );
 }
@@ -196,16 +220,23 @@ function BottomNav({ current }: { current: string }) {
     { k: 'plus', l: 'Plus', i: Menu },
   ];
   return (
-    <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 border-t border-nuit-800 bg-nuit-950/95 backdrop-blur">
-      <div className="mx-auto flex max-w-xl items-stretch justify-around px-2 pt-1">
-        {items.map(({ k, l, i: Icon, main }) => (
-          <button key={k} onClick={() => go(k)} className={cx('flex min-h-[60px] flex-1 flex-col items-center justify-center gap-0.5 text-[11px]', current === k || (k === 'maintenant' && current === '') ? 'text-ocre-400' : 'text-nuit-400')}>
-            <span className={cx('flex items-center justify-center rounded-full', main ? 'h-11 w-11 bg-ocre-500 text-nuit-950' : 'h-8 w-8')}>
-              <Icon size={main ? 22 : 20} />
-            </span>
-            {l}
-          </button>
-        ))}
+    <nav className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[calc(env(safe-area-inset-bottom)+10px)]">
+      <div className="mx-auto flex max-w-md items-center justify-around rounded-[26px] border border-white/[0.07] bg-nuit-900/80 px-1.5 py-1.5 shadow-flottant backdrop-blur-2xl">
+        {items.map(({ k, l, i: Icon, main }) => {
+          const on = current === k || (k === 'maintenant' && current === '');
+          if (main)
+            return (
+              <button key={k} onClick={() => go(k)} aria-label={l} className="press mx-1 flex h-[52px] w-[52px] items-center justify-center rounded-[18px] bg-gradient-to-b from-ocre-400 to-ocre-500 text-nuit-950 shadow-[0_1px_0_rgba(255,255,255,0.4)_inset,0_10px_24px_-10px_rgba(207,143,69,0.9)]">
+                <Icon size={22} strokeWidth={2} />
+              </button>
+            );
+          return (
+            <button key={k} onClick={() => go(k)} className={cx('press flex h-[52px] flex-1 flex-col items-center justify-center gap-1 rounded-[18px] text-[10.5px] font-semibold', on ? 'bg-white/[0.07] text-sable' : 'text-nuit-400')}>
+              <Icon size={19} strokeWidth={on ? 2.1 : 1.7} />
+              {l}
+            </button>
+          );
+        })}
       </div>
     </nav>
   );

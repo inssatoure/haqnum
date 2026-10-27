@@ -1,4 +1,5 @@
 import Dexie, { type Table } from 'dexie';
+import { IS_SANDBOX } from './config';
 import type {
   Activity,
   Analysis,
@@ -38,7 +39,7 @@ export class ObsDB extends Dexie {
   meta!: Table<Meta, string>;
 
   constructor() {
-    super('min-observateur');
+    super(IS_SANDBOX ? 'min-observateur-bac-a-sable' : 'min-observateur');
     const base = 'id, mission_id, author_id, updated_at, _dirty';
     this.version(1).stores({
       activities: `${base}, starts_at`,

@@ -94,7 +94,7 @@ export default function ImportScreen({ activityId }: { activityId?: string }) {
         </Card>
       </div>
       {busy && <p className="mt-4 text-ocre-400">{busy}</p>}
-      <div className="mt-6 rounded-2xl bg-nuit-900 p-4 text-sm text-nuit-200">
+      <div className="mt-6 rounded-2xl bg-white/[0.03] p-4 text-sm text-nuit-200">
         <p className="mb-2 font-semibold text-sable">Depuis le Dictaphone</p>
         <ol className="list-decimal space-y-1 pl-5">
           <li>Dans Dictaphone, touchez l'enregistrement puis « ••• » &gt; « Enregistrer dans Fichiers ».</li>

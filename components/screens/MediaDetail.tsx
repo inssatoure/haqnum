@@ -117,7 +117,7 @@ function Viewer({ m }: { m: Media }) {
   const url = useMediaUrl(m.kind === 'photo' || m.kind === 'receipt' || m.kind === 'card' ? first : null);
   if (m.kind === 'photo' || m.kind === 'receipt' || m.kind === 'card') {
     // eslint-disable-next-line @next/next/no-img-element
-    return url ? <img src={url} alt="" className="w-full rounded-2xl" /> : <div className="h-60 rounded-2xl bg-nuit-800" />;
+    return url ? <img src={url} alt="" className="w-full rounded-2xl" /> : <div className="h-60 rounded-2xl bg-white/[0.05]" />;
   }
   if (m.kind === 'video') return <VideoPlayer path={first} mediaId={m.id} />;
   return <PartsPlayer m={m} />;
@@ -137,7 +137,7 @@ function VideoPlayer({ path, mediaId }: { path?: string; mediaId: string }) {
     window.addEventListener('media-seek', on);
     return () => window.removeEventListener('media-seek', on);
   }, [mediaId]);
-  return url ? <video ref={ref} src={url} controls playsInline className="w-full rounded-2xl bg-black" /> : <div className="h-60 rounded-2xl bg-nuit-800" />;
+  return url ? <video ref={ref} src={url} controls playsInline className="w-full rounded-2xl bg-black" /> : <div className="h-60 rounded-2xl bg-white/[0.05]" />;
 }
 
 /** Lecture enchaînée des morceaux d'un enregistrement Débat. */
@@ -181,7 +181,7 @@ export function PartsPlayer({ m }: { m: Media }) {
   }, [seekTo]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!parts.length) return <Empty>Aucun morceau sauvegardé.</Empty>;
   return (
-    <div className="rounded-2xl bg-nuit-900 p-3">
+    <div className="rounded-2xl bg-white/[0.03] p-3">
       <audio
         ref={ref}
         src={url ?? undefined}

@@ -16,7 +16,7 @@ export default function Comments({ table, id }: { table: string; id: string }) {
       <h3 className="mb-2 font-titre text-base text-ocre-400">Commentaires</h3>
       <div className="space-y-2">
         {list.map((c) => (
-          <div key={c.id} className="rounded-xl bg-nuit-900 p-3">
+          <div key={c.id} className="rounded-xl bg-white/[0.03] p-3">
             <div className="mb-1 flex items-center gap-2 text-xs text-nuit-400">
               <AuthorBadge authorId={c.author_id} small /> {dateHeure(c.created_at)}
             </div>

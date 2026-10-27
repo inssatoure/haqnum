@@ -5,6 +5,7 @@ import { getEngine, setEngine, type Engine } from '@/lib/ai-client';
 import { db } from '@/lib/db';
 import { formatBytes } from '@/lib/media';
 import { setPassword, signOut } from '@/lib/session';
+import { IS_SANDBOX, setSandbox } from '@/lib/config';
 import { syncNow } from '@/lib/sync';
 import { useMe, useProfiles, useSyncStatus } from '../hooks';
 import { Btn, Card, H2, Title, toast } from '../ui';
@@ -96,11 +97,19 @@ export default function Settings() {
         </>
       )}
 
+      <H2>Bac à sable</H2>
+      <Card>
+        <p className="text-[14px] leading-snug text-nuit-200">Une mission de test séparée : essayez le micro, la caméra, la transcription et l’IA. Tout y est gardé, mais rien ne se mélange avec la vraie mission.</p>
+        <Btn tone={IS_SANDBOX ? 'ocre' : 'nuit'} className="mt-3 w-full" onClick={() => setSandbox(!IS_SANDBOX)}>
+          {IS_SANDBOX ? 'Revenir à la vraie mission' : 'Ouvrir le bac à sable'}
+        </Btn>
+      </Card>
+
       <H2>Moteur IA</H2>
       <Card>
         <div className="flex gap-2">
           {(['gemini', 'claude'] as const).map((e) => (
-            <button key={e} onClick={() => { setEngine(e); setEng(e); }} className={'flex-1 rounded-xl px-3 py-3 text-sm font-semibold ' + (engine === e ? 'bg-ocre-500 text-nuit-950' : 'bg-nuit-800 text-nuit-200')}>
+            <button key={e} onClick={() => { setEngine(e); setEng(e); }} className={'flex-1 rounded-xl px-3 py-3 text-sm font-semibold ' + (engine === e ? 'bg-ocre-500 text-nuit-950' : 'bg-white/[0.05] text-nuit-200')}>
               {e === 'gemini' ? 'Gemini (économique)' : 'Claude (qualité)'}
             </button>
           ))}

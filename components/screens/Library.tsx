@@ -28,7 +28,7 @@ export default function Library() {
       <AuthorFilterBar />
       <div className="-mx-4 mb-2 flex gap-2 overflow-x-auto px-4">
         {KINDS.map(([k, l]) => (
-          <button key={k} onClick={() => setKind(k)} className={cx('shrink-0 rounded-full px-3 py-1.5 text-sm', kind === k ? 'bg-ocre-500 text-nuit-950' : 'bg-nuit-900 text-nuit-200')}>{l}</button>
+          <button key={k} onClick={() => setKind(k)} className={cx('shrink-0 rounded-full px-3 py-1.5 text-sm', kind === k ? 'bg-ocre-500 text-nuit-950' : 'bg-white/[0.03] text-nuit-200')}>{l}</button>
         ))}
       </div>
       {!shown.length && <Empty>Rien pour l’instant.</Empty>}

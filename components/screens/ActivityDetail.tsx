@@ -53,7 +53,7 @@ export default function ActivityDetail({ id }: { id: string }) {
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {data?.goers.map((g) => <span key={g.id} className="flex items-center gap-1 text-xs"><AuthorBadge authorId={g.author_id} small /> y va</span>)}
         <button
-          className="rounded-full bg-nuit-700 px-3 py-1.5 text-xs font-semibold"
+          className="rounded-full bg-white/[0.08] px-3 py-1.5 text-xs font-semibold"
           onClick={async () => {
             const mine = data?.goers.find((g) => g.author_id === me?.id);
             if (mine) await update('assignments', mine.id, { deleted_at: new Date().toISOString() });
@@ -88,7 +88,7 @@ export default function ActivityDetail({ id }: { id: string }) {
         ))}
         <div className="grid grid-cols-2 gap-2">
           {Object.entries(FICHE_LABEL).map(([t, l]) => (
-            <button key={t} onClick={() => go(`fiche?type=${t}&activite=${id}`)} className="rounded-xl border border-dashed border-nuit-600 p-3 text-left text-sm text-nuit-200">
+            <button key={t} onClick={() => go(`fiche?type=${t}&activite=${id}`)} className="rounded-xl border border-dashed border-white/[0.12] p-3 text-left text-sm text-nuit-200">
               + {l}
             </button>
           ))}

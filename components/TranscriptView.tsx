@@ -44,7 +44,7 @@ export function TranscriptView({ t, media }: { t: Transcript; media: Media }) {
         )}
       </div>
       {rename && (
-        <div className="mb-3 space-y-2 rounded-xl bg-nuit-900 p-3">
+        <div className="mb-3 space-y-2 rounded-xl bg-white/[0.03] p-3">
           {spkKeys.map((k) => (
             <div key={k} className="flex items-center gap-2">
               <span className="w-24 text-xs text-nuit-400">{k}</span>
@@ -53,7 +53,7 @@ export function TranscriptView({ t, media }: { t: Transcript; media: Media }) {
           ))}
         </div>
       )}
-      <div className="max-h-[60vh] space-y-1.5 overflow-y-auto rounded-xl bg-nuit-900 p-3 text-sm">
+      <div className="max-h-[60vh] space-y-1.5 overflow-y-auto rounded-xl bg-white/[0.03] p-3 text-sm">
         {t.segments.map((s, i) => {
           const prev = t.segments[i - 1];
           const showSpk = s.speaker && s.speaker !== prev?.speaker;

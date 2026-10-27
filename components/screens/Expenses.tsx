@@ -65,7 +65,7 @@ export default function Expenses() {
       <div className="space-y-2">
         {list.map((e) => (
           <Card key={e.id} className="flex items-center gap-3">
-            {e.receipt_media_id && receipts[e.receipt_media_id] ? <Thumb path={receipts[e.receipt_media_id].thumb_path} className="h-12 w-12 rounded-lg" /> : <span className="h-12 w-12 rounded-lg bg-nuit-800" />}
+            {e.receipt_media_id && receipts[e.receipt_media_id] ? <Thumb path={receipts[e.receipt_media_id].thumb_path} className="h-12 w-12 rounded-lg" /> : <span className="h-12 w-12 rounded-lg bg-white/[0.05]" />}
             <div className="flex-1">
               <p className="font-semibold">{e.amount?.toFixed(2)} {e.currency} · {e.category}</p>
               <p className="text-xs text-nuit-400">{e.label} · {dateHeure(e.spent_at)}</p>

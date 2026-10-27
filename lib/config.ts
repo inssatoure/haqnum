@@ -6,7 +6,34 @@ const DEFAULT_SUPABASE_ANON_KEY =
 const valid = (v: string | undefined, re: RegExp) => (v && re.test(v.trim()) ? v.trim() : '');
 export const SUPABASE_URL = valid(process.env.NEXT_PUBLIC_SUPABASE_URL, /^https:\/\/[a-z0-9.-]+$/) || DEFAULT_SUPABASE_URL;
 export const SUPABASE_ANON_KEY = valid(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY, /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/) || DEFAULT_SUPABASE_ANON_KEY;
-export const MISSION_ID = process.env.NEXT_PUBLIC_MISSION_ID || '00000000-0000-4000-8000-000000002026';
+export const MAIN_MISSION_ID = process.env.NEXT_PUBLIC_MISSION_ID || '00000000-0000-4000-8000-000000002026';
+/** Bac à sable : mission de test séparée (base locale, serveur et fichiers distincts). */
+export const SANDBOX_MISSION_ID = '00000000-0000-4000-8000-00000000b0b0';
+export const IS_SANDBOX = (() => {
+  try {
+    return typeof localStorage !== 'undefined' && localStorage.getItem('min_sandbox') === '1';
+  } catch {
+    return false;
+  }
+})();
+export const MISSION_ID = IS_SANDBOX ? SANDBOX_MISSION_ID : MAIN_MISSION_ID;
+
+/** Identifiant des données de référence copiées dans le bac à sable (bijection, même calcul qu'en SQL). */
+export function sandboxId(id: string): string {
+  const head = ((parseInt(id.slice(0, 8), 16) ^ 0xa5a5a5a5) >>> 0).toString(16).padStart(8, '0');
+  return head + id.slice(8);
+}
+
+/** Passe dans / sort du bac à sable (recharge l'app sur l'autre jeu de données). */
+export function setSandbox(on: boolean) {
+  try {
+    localStorage.setItem('min_sandbox', on ? '1' : '0');
+  } catch {
+    /* ignore */
+  }
+  window.location.hash = '#/maintenant';
+  window.location.reload();
+}
 export const TZ = 'Europe/Paris';
 export const BUCKET = 'media';
 

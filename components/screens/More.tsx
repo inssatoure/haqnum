@@ -1,6 +1,7 @@
 'use client';
 
-import { BookOpen, Bot, FileDown, Images, LayoutDashboard, Map, Receipt, Settings, Upload } from 'lucide-react';
+import { ArrowRight, BookOpen, Bot, FileDown, FlaskConical, Images, LayoutDashboard, Map, Receipt, Settings, Upload } from 'lucide-react';
+import { IS_SANDBOX, setSandbox } from '@/lib/config';
 import { go } from '../hooks';
 import { Card, IconCircle, Title } from '../ui';
 
@@ -20,16 +21,25 @@ export default function More() {
   return (
     <div>
       <Title>Plus</Title>
-      <div className="space-y-2">
+      <div className="space-y-2.5">
         {ITEMS.map(({ k, l, d, i }) => (
           <Card key={k} onClick={() => go(k)} className="flex items-center gap-3">
             <IconCircle icon={i} />
-            <div>
+            <div className="flex-1">
               <p className="font-semibold">{l}</p>
-              <p className="text-sm text-nuit-400">{d}</p>
+              <p className="text-[13px] text-nuit-400">{d}</p>
             </div>
+            <ArrowRight size={17} className="text-nuit-400" />
           </Card>
         ))}
+        <Card onClick={() => setSandbox(!IS_SANDBOX)} className="flex items-center gap-3 border-dashed border-ocre-500/30">
+          <IconCircle icon={FlaskConical} tone="ocre" />
+          <div className="flex-1">
+            <p className="font-semibold">{IS_SANDBOX ? 'Revenir à la vraie mission' : 'Bac à sable'}</p>
+            <p className="text-[13px] text-nuit-400">Tester sans toucher aux données de la mission</p>
+          </div>
+          <ArrowRight size={17} className="text-nuit-400" />
+        </Card>
       </div>
     </div>
   );

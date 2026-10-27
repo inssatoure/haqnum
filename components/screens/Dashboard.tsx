@@ -4,7 +4,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { AlertTriangle } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { db } from '@/lib/db';
-import { dayKey, heure, jourLong } from '@/lib/time';
+import { dayKey, heure, jourLong, jourPill } from '@/lib/time';
 import { AiPanel } from '../AiPanel';
 import { go, useActivities, useNow, useProfiles } from '../hooks';
 import { AuthorBadge, colorOf, cx, Title } from '../ui';
@@ -48,8 +48,8 @@ export default function Dashboard() {
       <Title sub="Qui a couvert quoi. Répartissez-vous les sessions parallèles.">Tableau du jour</Title>
       <div className="-mx-4 mb-3 flex gap-2 overflow-x-auto px-4">
         {days.map((k) => (
-          <button key={k} onClick={() => setDay(k)} className={cx('shrink-0 rounded-full px-4 py-2 text-sm font-semibold', k === d ? 'bg-ocre-500 text-nuit-950' : 'bg-nuit-900 text-nuit-200')}>
-            {jourLong(k + 'T12:00:00Z')}
+          <button key={k} onClick={() => setDay(k)} className={cx('shrink-0 rounded-full px-4 py-2 text-sm font-semibold', k === d ? 'bg-ocre-500 text-nuit-950' : 'bg-white/[0.03] text-nuit-200')}>
+            {jourPill(k)}
           </button>
         ))}
       </div>
@@ -69,7 +69,7 @@ export default function Dashboard() {
           const past = new Date(a.ends_at) < now;
           const empty = !Object.keys(per).length;
           return (
-            <button key={a.id} onClick={() => go(`activite/${a.id}`)} className={cx('block w-full rounded-2xl border bg-nuit-900 p-3 text-left', empty && past ? 'border-terre-500' : 'border-nuit-700')}>
+            <button key={a.id} onClick={() => go(`activite/${a.id}`)} className={cx('block w-full rounded-2xl border bg-white/[0.03] p-3 text-left', empty && past ? 'border-terre-500' : 'border-white/[0.07]')}>
               <p className="text-sm text-ocre-400">{heure(a.starts_at)}–{heure(a.ends_at)}</p>
               <p className="font-semibold">{a.title}</p>
               {empty ? (

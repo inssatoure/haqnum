@@ -7,7 +7,7 @@ import { ACTIVITY_KINDS } from '@/lib/config';
 import { db } from '@/lib/db';
 import { parseCsvActivities, parseIcs } from '@/lib/importers';
 import { create, update } from '@/lib/repo';
-import { dayKey, heure, isoToParisInputs, jourLong, parisToIso } from '@/lib/time';
+import { dayKey, heure, isoToParisInputs, jourPill, parisToIso } from '@/lib/time';
 import type { Activity } from '@/lib/types';
 import { go, matchAuthor, useActivities, useAuthorFilter, useMe, useNow } from '../hooks';
 import { AuthorBadge, AuthorFilterBar, Btn, cx, Field, Input, Select, Sheet, TextArea, Title, toast } from '../ui';
@@ -49,8 +49,8 @@ export default function Programme() {
       <Title sub="Heure de Paris. « J'y vais » pour se répartir les sessions.">Programme</Title>
       <div className="-mx-4 mb-3 flex gap-2 overflow-x-auto px-4 pb-1">
         {days.map((d) => (
-          <button key={d} onClick={() => setDay(d)} className={cx('shrink-0 rounded-full px-4 py-2 text-sm font-semibold', d === day ? 'bg-ocre-500 text-nuit-950' : 'bg-nuit-900 text-nuit-200', d === today && d !== day && 'ring-1 ring-ocre-500')}>
-            {jourLong(d + 'T12:00:00Z').replace(/ \d{4}$/, '')}
+          <button key={d} onClick={() => setDay(d)} className={cx('shrink-0 rounded-full px-4 py-2 text-sm font-semibold', d === day ? 'bg-ocre-500 text-nuit-950' : 'bg-white/[0.03] text-nuit-200', d === today && d !== day && 'ring-1 ring-ocre-500')}>
+            {jourPill(d)}
           </button>
         ))}
       </div>
@@ -64,7 +64,7 @@ export default function Programme() {
           const authors = Object.keys(c).filter((k) => matchAuthor(k, filter, me?.id));
           if (filter !== 'tout' && !authors.length && !goers.some((g) => matchAuthor(g.author_id, filter, me?.id))) return null;
           return (
-            <div key={a.id} className={cx('rounded-2xl border bg-nuit-900 p-3', isNow ? 'border-ocre-500' : 'border-nuit-700')}>
+            <div key={a.id} className={cx('rounded-2xl border bg-white/[0.03] p-3', isNow ? 'border-ocre-500' : 'border-white/[0.07]')}>
               <button className="block w-full text-left" onClick={() => go(`activite/${a.id}`)}>
                 <div className="flex items-baseline gap-2">
                   <span className="w-24 shrink-0 text-sm font-semibold text-ocre-400">
@@ -90,7 +90,7 @@ export default function Programme() {
                   </span>
                 ))}
                 {a.kind !== 'transport' && (
-                  <button onClick={() => toggleGo(a)} className={cx('ml-auto flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold', iGo ? 'bg-moctar/20 text-moctar' : 'bg-nuit-700 text-sable')}>
+                  <button onClick={() => toggleGo(a)} className={cx('ml-auto flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold', iGo ? 'bg-moctar/20 text-moctar' : 'bg-white/[0.08] text-sable')}>
                     {iGo && <Check size={14} />} J'y vais
                   </button>
                 )}

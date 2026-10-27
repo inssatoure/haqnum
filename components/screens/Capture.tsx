@@ -38,7 +38,7 @@ export function QuickActions({ activityId, ficheId, contactId, onSaved }: { acti
     }
   };
 
-  const btn = 'flex flex-col items-center justify-center gap-2 rounded-2xl bg-nuit-900 border border-nuit-700 py-4 text-sm font-semibold active:bg-nuit-800 min-h-[96px]';
+  const btn = 'press flex min-h-[92px] flex-col items-center justify-center gap-2 rounded-[20px] border border-white/[0.06] bg-gradient-to-b from-white/[0.05] to-white/[0.015] py-3 text-[13px] font-semibold text-sable shadow-carte disabled:opacity-50';
   return (
     <>
       <div className="grid grid-cols-4 gap-2">
@@ -128,11 +128,11 @@ export function VoiceNote({ onSaved }: { onSaved: (b: Blob, seconds: number) => 
   useEffect(() => () => rec.current?.cancel(), []);
   return (
     <div className="flex flex-col items-center py-4">
-      <p className="mb-4 font-titre text-4xl tabular-nums">{formatDuration(t)}</p>
+      <p className="mb-5 font-titre text-[44px] tabular-nums text-sable">{formatDuration(t)}</p>
       {err && <p className="mb-3 text-sm text-red-300">{err}</p>}
       {!on ? (
         <button
-          className="flex h-24 w-24 items-center justify-center rounded-full bg-terre-500 text-sable"
+          className="press flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-b from-[#C9654A] to-terre-500 text-sable shadow-flottant"
           aria-label="Démarrer la note vocale"
           onClick={async () => {
             try {
@@ -267,7 +267,7 @@ export default function Capture({ experience, activityId }: { experience: boolea
           <H2>Dans cette fiche ({items.length})</H2>
           <div className="grid grid-cols-4 gap-2">
             {items.map((m) => (
-              <button key={m.id} onClick={() => go(`media/${m.id}`)} className="aspect-square overflow-hidden rounded-lg bg-nuit-800">
+              <button key={m.id} onClick={() => go(`media/${m.id}`)} className="aspect-square overflow-hidden rounded-lg bg-white/[0.05]">
                 {m.thumb_path ? <Thumb path={m.thumb_path} className="h-full w-full" /> : <span className="flex h-full items-center justify-center"><Mic size={18} /></span>}
               </button>
             ))}

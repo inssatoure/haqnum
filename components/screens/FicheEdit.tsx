@@ -132,7 +132,7 @@ function FieldInput({ fd, value, onChange, readOnly }: { fd: FicheField; value: 
       <Field label={fd.label}>
         <div className="flex flex-wrap gap-2">
           {fd.options!.map((o) => (
-            <button key={o} type="button" onClick={() => onChange(arr.includes(o) ? arr.filter((x) => x !== o) : [...arr, o])} className={cx('rounded-full px-3 py-1.5 text-sm', arr.includes(o) ? 'bg-ocre-500 text-nuit-950' : 'bg-nuit-800 text-nuit-200')}>
+            <button key={o} type="button" onClick={() => onChange(arr.includes(o) ? arr.filter((x) => x !== o) : [...arr, o])} className={cx('rounded-full px-3 py-1.5 text-sm', arr.includes(o) ? 'bg-ocre-500 text-nuit-950' : 'bg-white/[0.05] text-nuit-200')}>
               {o}
             </button>
           ))}
