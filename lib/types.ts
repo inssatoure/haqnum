@@ -202,7 +202,11 @@ export interface Profile {
 export interface LocalBlob {
   path: string;
   media_id: string;
-  blob: Blob;
+  /** Octets bruts : Safari iPhone refuse parfois les Blob dans IndexedDB. */
+  data?: ArrayBuffer;
+  /** Ancien format (ou très gros fichiers) : Blob direct. */
+  blob?: Blob;
+  size: number;
   mime: string;
   uploaded: 0 | 1;
   created_at: string;

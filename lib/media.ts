@@ -6,7 +6,9 @@ import { BUCKET, MISSION_ID } from './config';
 import { db } from './db';
 import { currentUser } from './session';
 import { supabase } from './supabase';
+import { rowBlob } from './localblob';
 import { requestSync } from './sync';
+import type { LocalBlob } from './types';
 import { r2ReadUrl, isR2Enabled } from './storage-client';
 
 export function extFromMime(mime: string, fallbackName?: string): string {
@@ -31,19 +33,39 @@ export function storagePath(mediaId: string, file: string): string {
   return `${MISSION_ID}/${me?.id ?? 'local'}/${mediaId}/${file}`;
 }
 
+/** Au-delà, on tente d'abord le Blob direct pour ne pas charger tout le fichier en mémoire. */
+const BIG_FILE = 150 * 1024 * 1024;
+
 /** Garde le fichier en local (IndexedDB) et le met dans la file d'envoi. */
 export async function storeBlob(mediaId: string, file: string, blob: Blob, mime?: string): Promise<string> {
   const path = storagePath(mediaId, file);
-  await db().blobs.put({
+  const row: LocalBlob = {
     path,
     media_id: mediaId,
-    blob,
     mime: mime || blob.type || 'application/octet-stream',
+    size: blob.size,
     uploaded: 0,
     created_at: new Date().toISOString(),
-  });
-  requestSync();
-  return path;
+  };
+  // Safari iPhone échoue parfois avec « Error preparing Blob/File data to be stored in object store » :
+  // on range donc les octets bruts (ArrayBuffer), et le Blob seulement en dernier recours.
+  const attempts: (() => Promise<LocalBlob>)[] = [];
+  const asBytes = async (): Promise<LocalBlob> => ({ ...row, data: await blob.arrayBuffer() });
+  const asBlob = async (): Promise<LocalBlob> => ({ ...row, blob });
+  if (blob.size > BIG_FILE) attempts.push(asBlob, asBytes);
+  else attempts.push(asBytes, asBlob);
+  let lastErr: unknown;
+  for (const make of attempts) {
+    try {
+      await db().blobs.put(await make());
+      requestSync();
+      return path;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  const detail = lastErr instanceof Error ? lastErr.message : String(lastErr);
+  throw new Error(`Impossible de garder le fichier sur ce téléphone (${detail}). Vérifiez l'espace libre et que Safari n'est pas en navigation privée.`);
 }
 
 const urlCache = new Map<string, string>();
@@ -52,9 +74,9 @@ const urlCache = new Map<string, string>();
 export async function mediaUrl(path: string | null | undefined): Promise<string | null> {
   if (!path) return null;
   if (urlCache.has(path)) return urlCache.get(path)!;
-  const local = await db().blobs.get(path);
-  if (local?.blob) {
-    const u = URL.createObjectURL(local.blob);
+  const localBlob = rowBlob(await db().blobs.get(path));
+  if (localBlob) {
+    const u = URL.createObjectURL(localBlob);
     urlCache.set(path, u);
     return u;
   }
@@ -75,8 +97,8 @@ export async function mediaUrl(path: string | null | undefined): Promise<string 
 
 /** Récupère le fichier original (local ou téléchargé). */
 export async function fetchBlob(path: string): Promise<Blob | null> {
-  const local = await db().blobs.get(path);
-  if (local?.blob) return local.blob;
+  const local = rowBlob(await db().blobs.get(path));
+  if (local) return local;
   const sb = supabase();
   if (!sb) return null;
   if (await isR2Enabled()) {

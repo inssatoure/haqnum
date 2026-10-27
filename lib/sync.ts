@@ -10,7 +10,8 @@ import { db, getMeta, setMeta } from './db';
 import { currentUser } from './session';
 import { accessToken, supabase } from './supabase';
 import { SYNC_TABLES, type LocalBlob, type SyncTable } from './types';
-import { uploadToR2, isR2Enabled } from './storage-client';
+import { isR2Enabled, uploadToR2 } from './storage-client';
+import { rowBlob, rowSize } from './localblob';
 
 export interface SyncStatus {
   running: boolean;
@@ -61,12 +62,13 @@ export async function refreshPending() {
   const d = db();
   let rows = 0;
   for (const t of SYNC_TABLES) rows += await d.table_(t).where('_dirty').equals(1).count();
-  const files = await d.blobs.where('uploaded').equals(0).toArray();
-  setStatus({
-    pendingRows: rows,
-    pendingFiles: files.length,
-    pendingBytes: files.reduce((a, b) => a + (b.blob?.size ?? 0), 0),
+  let files = 0;
+  let bytes = 0;
+  await d.blobs.where('uploaded').equals(0).each((b) => {
+    files++;
+    bytes += rowSize(b);
   });
+  setStatus({ pendingRows: rows, pendingFiles: files, pendingBytes: bytes });
 }
 
 export async function syncNow(): Promise<void> {
@@ -185,12 +187,16 @@ async function syncOnce() {
 
 async function uploadPending() {
   const d = db();
-  const pending = await d.blobs.where('uploaded').equals(0).toArray();
+  // On ne garde que chemin + taille en mémoire, et on relit les fichiers un par un.
+  const pending: { path: string; size: number }[] = [];
+  await d.blobs.where('uploaded').equals(0).each((x) => pending.push({ path: x.path, size: rowSize(x) }));
   // Petits fichiers d'abord (miniatures, notes vocales, morceaux audio), vidéos ensuite.
-  pending.sort((a, b) => a.blob.size - b.blob.size);
+  pending.sort((a, b) => a.size - b.size);
   const touched = new Set<string>();
-  for (const b of pending) {
+  for (const item of pending) {
     if (!navigator.onLine) break;
+    const b = await d.blobs.get(item.path);
+    if (!b || b.uploaded) continue;
     try {
       setStatus({ uploading: b.path, uploadPct: 0 });
       await uploadBlob(b, (pct) => setStatus({ uploadPct: pct }));
@@ -213,24 +219,26 @@ async function uploadPending() {
 }
 
 async function uploadBlob(b: LocalBlob, onPct: (n: number) => void) {
+  const blob = rowBlob(b);
+  if (!blob) throw new Error('Fichier local illisible');
   const token = await accessToken();
   if (!token) throw new Error('Session expirée');
   // Cloudflare R2 (si activé sur le serveur) : pas de limite de 50 Mo, envoi reprenable.
   if (await isR2Enabled()) {
-    await uploadToR2(b, onPct);
+    await uploadToR2({ ...b, blob }, onPct);
     return;
   }
   // Petits fichiers : envoi direct, plus rapide.
-  if (b.blob.size < 5 * 1024 * 1024) {
+  if (blob.size < 5 * 1024 * 1024) {
     const sb = supabase()!;
-    const { error } = await sb.storage.from(BUCKET).upload(b.path, b.blob, { contentType: b.mime, upsert: true });
+    const { error } = await sb.storage.from(BUCKET).upload(b.path, blob, { contentType: b.mime, upsert: true });
     if (error) throw new Error(error.message);
     onPct(100);
     return;
   }
   // Gros fichiers : envoi par morceaux de 6 Mo, avec reprise après coupure.
   await new Promise<void>((resolve, reject) => {
-    const up = new tus.Upload(b.blob, {
+    const up = new tus.Upload(blob, {
       endpoint: `${SUPABASE_URL}/storage/v1/upload/resumable`,
       retryDelays: [0, 2000, 5000, 10000, 20000],
       headers: { authorization: `Bearer ${token}`, 'x-upsert': 'true' },

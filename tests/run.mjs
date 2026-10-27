@@ -68,6 +68,18 @@ await page.clock.resume();
 await page.addInitScript(() => {
   localStorage.setItem('min_chunk_ms', localStorage.getItem('min_chunk_ms') || '2000');
 });
+// Simule le bug de Safari iPhone : ranger un Blob/File dans IndexedDB échoue.
+await page.addInitScript(() => {
+  const refuse = (orig) =>
+    function (value, ...rest) {
+      if (value && typeof value === 'object' && Object.values(value).some((v) => v instanceof Blob)) {
+        throw new DOMException('Error preparing Blob/File data to be stored in object store', 'UnknownError');
+      }
+      return orig.call(this, value, ...rest);
+    };
+  IDBObjectStore.prototype.put = refuse(IDBObjectStore.prototype.put);
+  IDBObjectStore.prototype.add = refuse(IDBObjectStore.prototype.add);
+});
 const shot = (n) => page.screenshot({ path: path.join(OUT, `${n}.png`) });
 const go = async (h) => {
   await page.evaluate((x) => (location.hash = x), h);
@@ -187,6 +199,17 @@ await step('Photo prise depuis l’app + note vocale liée + note écrite', asyn
   await page.locator('textarea').fill('Installation immersive : 3 projecteurs, capteurs Kinect, public très jeune.');
   await page.getByRole('button', { name: 'Enregistrer la note' }).click();
   await page.getByText('Note enregistrée').waitFor();
+});
+
+await step('Fichiers rangés en octets bruts (compatible Safari iPhone)', async () => {
+  const r = await page.evaluate(() => new Promise((res) => {
+    const o = indexedDB.open('min-observateur');
+    o.onsuccess = () => {
+      const q = o.result.transaction('blobs').objectStore('blobs').getAll();
+      q.onsuccess = () => res({ n: q.result.length, bytes: q.result.filter((b) => b.data instanceof ArrayBuffer && b.size === b.data.byteLength).length, blobs: q.result.filter((b) => b.blob).length });
+    };
+  }));
+  if (!r.n || r.bytes !== r.n || r.blobs) throw new Error(JSON.stringify(r));
 });
 
 await step('« Je suis dans une expérience » : fiche œuvre avec médias', async () => {

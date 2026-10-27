@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getEngine, setEngine, type Engine } from '@/lib/ai-client';
 import { db } from '@/lib/db';
+import { rowSize } from '@/lib/localblob';
 import { formatBytes } from '@/lib/media';
 import { setPassword, signOut } from '@/lib/session';
 import { IS_SANDBOX, setSandbox } from '@/lib/config';
@@ -28,8 +29,8 @@ export default function Settings() {
     let uploaded = 0;
     let count = 0;
     await db().blobs.each((b) => {
-      total += b.blob?.size ?? 0;
-      if (b.uploaded) uploaded += b.blob?.size ?? 0;
+      total += rowSize(b);
+      if (b.uploaded) uploaded += rowSize(b);
       count++;
     });
     setLocal({ total, uploaded, count });

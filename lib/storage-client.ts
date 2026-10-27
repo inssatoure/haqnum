@@ -49,7 +49,7 @@ function putWithProgress(url: string, body: Blob, contentType: string | null, on
   });
 }
 
-export async function uploadToR2(b: LocalBlob & { mp?: { uploadId: string; parts: { n: number; etag: string }[] } }, onPct: (n: number) => void) {
+export async function uploadToR2(b: LocalBlob & { blob: Blob; mp?: { uploadId: string; parts: { n: number; etag: string }[] } }, onPct: (n: number) => void) {
   if (b.blob.size <= PART) {
     const { url } = await call<{ url: string }>({ op: 'put', path: b.path });
     await putWithProgress(url, b.blob, b.mime, onPct);
