@@ -52,7 +52,7 @@ async function open(email, password, name) {
   await page.goto(BASE);
   await page.getByLabel('E-mail').fill(email);
   await page.getByLabel('Mot de passe').fill(password);
-  await page.getByRole('button', { name: 'Se connecter' }).click();
+  await page.getByRole('button', { name: 'Se connecter', exact: true }).click();
   await page.getByText(/Bonjour/).waitFor({ timeout: 20000 });
   return { ctx, page };
 }

@@ -1,10 +1,11 @@
 import 'server-only';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from '../config';
 
 // Client Supabase « au nom de l'utilisateur » : les règles RLS s'appliquent côté serveur aussi.
 export function supabaseForRequest(req: Request): { sb: SupabaseClient; token: string } {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = SUPABASE_URL;
+  const anon = SUPABASE_ANON_KEY;
   if (!url || !anon) throw new HttpError(500, 'Supabase non configuré sur le serveur');
   const token = (req.headers.get('authorization') ?? '').replace(/^Bearer\s+/i, '');
   if (!token) throw new HttpError(401, 'Connexion requise');

@@ -1,6 +1,6 @@
 // Tests de bout en bout, format iPhone (Chromium avec écran, tactile et user-agent iPhone).
 // Usage : BASE=http://localhost:3100 node tests/run.mjs
-// Prérequis : app lancée (npm run build && npm start). Sans Supabase : mode local.
+// Prérequis : app lancée en mode local : NEXT_PUBLIC_LOCAL_MODE=1 npm run build && npm start
 // LONG=1 : enregistrement Débat réel de 30 min (morceaux de 45 s).
 
 import { createRequire } from 'node:module';
