@@ -1,0 +1,30 @@
+{
+  "contacts": [
+    ["Hannah Bellicha", "Institut français – Pôle Création numérique et audiovisuelle", "Cheffe de pôle", "France", "", "organisateur"],
+    ["Ambre Falkowiez", "Institut français – Pôle Création numérique et audiovisuelle", "Chargée de projet", "France", "", "organisateur"],
+    ["Nadia Bouissehak", "Institut français – Pôle Création numérique et audiovisuelle", "", "France", "", "organisateur"],
+    ["Olivier Delpoux", "Institut français – Pôle Création numérique et audiovisuelle", "", "France", "", "organisateur"],
+    ["Ludovic Guillot", "Institut français", "Directeur de la création artistique et des industries culturelles", "France", "", "organisateur"],
+    ["Vianney Quignon", "HACNUM", "Coordinateur", "France", "+33 7 77 84 11 39", "organisateur"],
+    ["Gwladys Bernard", "HACNUM", "Projets internationaux", "France", "", "organisateur"],
+    ["Céline Berthoumieux", "HACNUM / Chroniques", "Déléguée générale, co-directrice de Chroniques", "France", "", "organisateur"],
+    ["Seda Grigoryan", "ASA Armenia", "", "Arménie", "", "delegation"],
+    ["Junior François Adasopo", "Lumartis", "", "Burundi", "", "delegation"],
+    ["Gabriela Moldovan", "", "Curatrice", "Roumanie", "", "delegation"],
+    ["Moctar Sidibé", "Kucibok", "", "Sénégal", "", "delegation"],
+    ["Balé Hormo", "WenakLabs", "", "Tchad", "", "delegation"],
+    ["Issa Touré", "Azerty Agency / Metafrik", "Fondateur", "Sénégal", "", "delegation"],
+    ["Louk", "ARTEFUNKT", "Fonds européens", "", "", "matchmaking"],
+    ["Paul Bouchard", "Diversion", "Fonds européens", "", "", "matchmaking"]
+  ],
+  "oeuvres": [
+    ["Anima Ludens", "", "Imaginaires du jeu vidéo japonais", "Octobre Numérique – Faire Monde, Arles", "jeu vidéo"],
+    ["Le langage des phalènes", "Mathilde Reynaud", "", "Octobre Numérique – Faire Monde, Arles", ""],
+    ["Melencolia 110010100", "Guillaume Pascale", "", "Octobre Numérique – Faire Monde, Arles", ""],
+    ["Futurs Solaires", "", "", "La Manufacture, Aix-en-Provence", ""],
+    ["A Salty protest #2", "Étienne Guiol", "Avant-première", "Aix-en-Provence", "performance"],
+    ["Predictive Constellations", "Noemi Iglesias Barrios", "EMAP Open Lab", "Friche la Belle de Mai, Marseille", ""],
+    ["TRAVERSE – Artou", "", "Œuvre VR", "La Citadelle de Marseille", "VR/XR"],
+    ["TRAVERSE – L'Île des morts", "", "Œuvre VR", "La Citadelle de Marseille", "VR/XR"]
+  ]
+}
