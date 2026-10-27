@@ -8,7 +8,10 @@ const nextConfig = {
   reactStrictMode: false,
   // Le dépôt contient une autre app à la racine : on fixe la racine de ce projet.
   outputFileTracingRoot: here,
-  outputFileTracingIncludes: { '/api/**': ['./node_modules/ffmpeg-static/ffmpeg'] },
+  outputFileTracingIncludes: {
+    '/api/transcribe': ['./node_modules/ffmpeg-static/ffmpeg'],
+    '/api/diarize': ['./node_modules/ffmpeg-static/ffmpeg'],
+  },
   serverExternalPackages: ['ffmpeg-static'],
   async headers() {
     return [{ source: '/sw.js', headers: [{ key: 'Cache-Control', value: 'no-cache' }, { key: 'Service-Worker-Allowed', value: '/' }] }];

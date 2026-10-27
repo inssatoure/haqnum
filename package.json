@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p 3100",
     "typecheck": "tsc --noEmit",
-    "test:e2e": "node tests/run.mjs"
+    "test:e2e": "node tests/run.mjs",
+    "postinstall": "node -e \"try{require('fs').accessSync(require('ffmpeg-static'))}catch(e){require('child_process').execSync('node install.js',{cwd:'node_modules/ffmpeg-static',stdio:'inherit'})}\" || echo 'ffmpeg-static non installé'"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",
