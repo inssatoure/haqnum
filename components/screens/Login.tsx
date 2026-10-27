@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { isConfigured } from '@/lib/config';
-import { sendCode, signIn, signInLocal, verifyCode } from '@/lib/session';
+import { sendCode, sendPasswordReset, signIn, signInLocal, verifyCode } from '@/lib/session';
 import { Btn, Field, Input } from '../ui';
 
 export default function Login() {
@@ -60,6 +60,19 @@ export default function Login() {
           <button type="button" className="mt-4 w-full text-center text-sm text-nuit-400 underline" onClick={() => setMode(mode === 'password' ? 'code' : 'password')}>
             {mode === 'password' ? 'Se connecter avec un code par e-mail' : 'Se connecter avec un mot de passe'}
           </button>
+          {mode === 'password' && (
+            <button
+              type="button"
+              className="mt-3 w-full text-center text-sm text-nuit-400 underline"
+              onClick={async () => {
+                if (!email.trim()) return setErr('Indiquez d’abord votre e-mail.');
+                const e = await run(() => sendPasswordReset(email));
+                if (!e) setErr('E-mail envoyé : ouvrez le lien pour choisir un nouveau mot de passe.');
+              }}
+            >
+              Mot de passe oublié / première connexion
+            </button>
+          )}
         </form>
       ) : (
         <LocalLogin />

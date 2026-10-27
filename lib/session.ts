@@ -69,7 +69,10 @@ export async function initSession(): Promise<Me | null> {
     }
   });
   emit();
-  if (me) void refreshProfiles();
+  if (me) {
+    if (AUTH_LINK_TYPE) await sb.rpc('join_invited_missions');
+    void refreshProfiles();
+  }
   return me;
 }
 
@@ -112,6 +115,24 @@ export async function signInLocal(name: string, org: string, color: 'issa' | 'mo
   await setMeta('local_user', me);
   await db().profiles.put({ id, full_name: name, short_name: name.split(' ')[0], organization: org, color });
   emit();
+}
+
+/** Lien d'invitation ou de réinitialisation : l'utilisateur doit choisir son mot de passe. */
+export const AUTH_LINK_TYPE: string | null =
+  typeof window !== 'undefined' ? (window.location.hash.match(/[#&]type=(invite|recovery|signup|magiclink)/)?.[1] ?? null) : null;
+
+export async function setPassword(password: string): Promise<string | null> {
+  const sb = supabase();
+  if (!sb) return 'Supabase non configuré';
+  const { error } = await sb.auth.updateUser({ password });
+  return error ? traduireErreur(error.message) : null;
+}
+
+export async function sendPasswordReset(email: string): Promise<string | null> {
+  const sb = supabase();
+  if (!sb) return 'Supabase non configuré';
+  const { error } = await sb.auth.resetPasswordForEmail(email.trim(), { redirectTo: window.location.origin + '/' });
+  return error ? traduireErreur(error.message) : null;
 }
 
 export async function signOut() {

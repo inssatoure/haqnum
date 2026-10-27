@@ -4,7 +4,8 @@ import { CalendarDays, Camera, Home, Menu, Mic, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { formatDuration } from '@/lib/media';
 import { getInterruptedRecording } from '@/lib/recorder';
-import { initSession } from '@/lib/session';
+import { AUTH_LINK_TYPE, initSession } from '@/lib/session';
+import SetPassword from './screens/SetPassword';
 import { startAutoSync } from '@/lib/sync';
 import { AuthorFilterContext, go, useMe, useRoute, useSyncStatus, type AuthorFilter } from './hooks';
 import { useRecorder } from './recorderStore';
@@ -32,6 +33,7 @@ import Library from './screens/Library';
 
 export default function App() {
   const [ready, setReady] = useState(false);
+  const [needPassword, setNeedPassword] = useState(AUTH_LINK_TYPE === 'invite' || AUTH_LINK_TYPE === 'recovery');
   const [filter, setFilter] = useState<AuthorFilter>('tout');
   const [interrupted, setInterrupted] = useState<{ mediaId: string; seconds: number; at: string } | null>(null);
   const me = useMe();
@@ -87,6 +89,7 @@ export default function App() {
 
   if (!ready) return <div className="flex min-h-screen items-center justify-center font-titre text-xl text-ocre-400">MIN Observateur…</div>;
   if (!me) return <Login />;
+  if (needPassword) return <SetPassword onDone={() => { setNeedPassword(false); window.location.hash = '#/maintenant'; }} />;
 
   return (
     <AuthorFilterContext.Provider value={{ value: filter, set: setFilter }}>

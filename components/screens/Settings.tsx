@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getEngine, setEngine, type Engine } from '@/lib/ai-client';
 import { db } from '@/lib/db';
 import { formatBytes } from '@/lib/media';
-import { signOut } from '@/lib/session';
+import { setPassword, signOut } from '@/lib/session';
 import { syncNow } from '@/lib/sync';
 import { useMe, useProfiles, useSyncStatus } from '../hooks';
 import { Btn, Card, H2, Title, toast } from '../ui';
@@ -111,7 +111,16 @@ export default function Settings() {
       <H2>Mon QR code</H2>
       <Card><MyQr /></Card>
 
-      <Btn tone="ghost" className="mt-6 w-full" onClick={() => { if (s.pendingFiles && !confirm('Des fichiers ne sont pas encore envoyés. Ils restent sur ce téléphone. Se déconnecter ?')) return; void signOut(); }}>
+      {!me?.local && (
+        <Btn tone="ghost" className="mt-6 w-full" onClick={async () => {
+          const pw = prompt('Nouveau mot de passe (8 caractères minimum)');
+          if (!pw) return;
+          if (pw.length < 8) return toast('8 caractères minimum');
+          const e = await setPassword(pw);
+          toast(e ?? 'Mot de passe changé');
+        }}>Changer mon mot de passe</Btn>
+      )}
+      <Btn tone="ghost" className="mt-3 w-full" onClick={() => { if (s.pendingFiles && !confirm('Des fichiers ne sont pas encore envoyés. Ils restent sur ce téléphone. Se déconnecter ?')) return; void signOut(); }}>
         Se déconnecter
       </Btn>
       <p className="mt-4 text-center text-xs text-nuit-400">MIN Observateur · v0.1</p>
