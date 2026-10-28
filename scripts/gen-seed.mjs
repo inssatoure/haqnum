@@ -27,8 +27,8 @@ sql += prog.activities.map(([s, e, title, kind, v, transport]) => {
 }).join(',\n');
 sql += `\non conflict (id) do update set title = excluded.title, kind = excluded.kind, starts_at = excluded.starts_at, ends_at = excluded.ends_at, city = excluded.city, venue = excluded.venue, address = excluded.address, lat = excluded.lat, lng = excluded.lng, transport = excluded.transport;\n\n`;
 
-sql += `insert into public.contacts (id, mission_id, name, organization, role, country, phone, category, status) values\n`;
-sql += ref.contacts.map(([n, o, r, c, p, cat]) => `  ('${uid('contact:' + n)}', '${MISSION}', ${q(n)}, ${q(o)}, ${q(r)}, ${q(c)}, ${q(p)}, ${q(cat)}, 'aucun')`).join(',\n');
+sql += `insert into public.contacts (id, mission_id, name, organization, role, country, phone, website, category, status) values\n`;
+sql += ref.contacts.map(([n, o, r, c, p, cat, w]) => `  ('${uid('contact:' + n)}', '${MISSION}', ${q(n)}, ${q(o)}, ${q(r)}, ${q(c)}, ${q(p)}, ${q(w)}, ${q(cat)}, 'aucun')`).join(',\n');
 sql += `\non conflict (id) do nothing;\n\n`;
 
 sql += `insert into public.fiches (id, mission_id, type, title, data) values\n`;
@@ -45,7 +45,7 @@ const seed = {
     const ven = prog.venues[v];
     return { ...base, id: uid('act:' + s + title), title, kind, starts_at: `${s}:00+01:00`, ends_at: `${e}:00+01:00`, city: ven.city, venue: ven.name, address: ven.address, lat: ven.lat, lng: ven.lng, transport: transport || null, source: 'officiel' };
   }),
-  contacts: ref.contacts.map(([n, o, r, c, p, cat]) => ({ ...base, id: uid('contact:' + n), name: n, organization: o || null, role: r || null, country: c || null, phone: p || null, category: cat, status: 'aucun', projects: [] })),
+  contacts: ref.contacts.map(([n, o, r, c, p, cat, w]) => ({ ...base, id: uid('contact:' + n), name: n, organization: o || null, role: r || null, country: c || null, phone: p || null, website: w || null, category: cat, status: 'aucun', projects: [] })),
   fiches: ref.oeuvres.map(([t, a, d, l, type]) => ({ ...base, id: uid('oeuvre:' + t), type: 'oeuvre', title: t, data: { artistes: a, description: d, lieu: l, type_oeuvre: type, reference: true } })),
 };
 writeFileSync(new URL('../data/seed.json', import.meta.url), JSON.stringify(seed, null, 1));

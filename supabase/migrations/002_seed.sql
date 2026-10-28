@@ -45,23 +45,23 @@ insert into public.activities (id, mission_id, title, kind, starts_at, ends_at, 
   ('029a11df-c36d-4a58-874d-2387100b3e78', '00000000-0000-4000-8000-000000002026', 'Départ de l''hôtel (avant 12h)', 'transport', '2026-11-02T08:00:00+01:00', '2026-11-02T12:00:00+01:00', 'Aix-en-Provence', 'Odalys Centre Rotonde', '24 Bd Albert Charrier, 13090 Aix-en-Provence', 43.5249, 5.4437, null, 'officiel')
 on conflict (id) do update set title = excluded.title, kind = excluded.kind, starts_at = excluded.starts_at, ends_at = excluded.ends_at, city = excluded.city, venue = excluded.venue, address = excluded.address, lat = excluded.lat, lng = excluded.lng, transport = excluded.transport;
 
-insert into public.contacts (id, mission_id, name, organization, role, country, phone, category, status) values
-  ('7b2cdad7-bd49-47ba-8d7f-462ebd24fac2', '00000000-0000-4000-8000-000000002026', 'Hannah Bellicha', 'Institut français – Pôle Création numérique et audiovisuelle', 'Cheffe de pôle', 'France', null, 'organisateur', 'aucun'),
-  ('f8cf4601-590f-4c14-8e0d-264852494a7c', '00000000-0000-4000-8000-000000002026', 'Ambre Falkowiez', 'Institut français – Pôle Création numérique et audiovisuelle', 'Chargée de projet', 'France', null, 'organisateur', 'aucun'),
-  ('1a39e715-b167-48eb-8cbc-96cb49ee611e', '00000000-0000-4000-8000-000000002026', 'Nadia Bouissehak', 'Institut français – Pôle Création numérique et audiovisuelle', null, 'France', null, 'organisateur', 'aucun'),
-  ('9d01c808-df7c-49c5-8751-79070bdc1fdb', '00000000-0000-4000-8000-000000002026', 'Olivier Delpoux', 'Institut français – Pôle Création numérique et audiovisuelle', null, 'France', null, 'organisateur', 'aucun'),
-  ('e31e9604-64ad-446e-82c0-b52783f1331d', '00000000-0000-4000-8000-000000002026', 'Ludovic Guillot', 'Institut français', 'Directeur de la création artistique et des industries culturelles', 'France', null, 'organisateur', 'aucun'),
-  ('0eee4a52-3d66-4fac-844b-01c047b2c464', '00000000-0000-4000-8000-000000002026', 'Vianney Quignon', 'HACNUM', 'Coordinateur', 'France', '+33 7 77 84 11 39', 'organisateur', 'aucun'),
-  ('719b48bd-7022-4ed4-8741-8c8c234f20f8', '00000000-0000-4000-8000-000000002026', 'Gwladys Bernard', 'HACNUM', 'Projets internationaux', 'France', null, 'organisateur', 'aucun'),
-  ('d2ed7175-943a-4620-84c0-0a3275eae2a0', '00000000-0000-4000-8000-000000002026', 'Céline Berthoumieux', 'HACNUM / Chroniques', 'Déléguée générale, co-directrice de Chroniques', 'France', null, 'organisateur', 'aucun'),
-  ('558cb98e-d636-44de-8c83-780c022167dc', '00000000-0000-4000-8000-000000002026', 'Seda Grigoryan', 'ASA Armenia', null, 'Arménie', null, 'delegation', 'aucun'),
-  ('d15f6841-5c80-4028-89c8-18fe54a70593', '00000000-0000-4000-8000-000000002026', 'Junior François Adasopo', 'Lumartis', null, 'Burundi', null, 'delegation', 'aucun'),
-  ('1dd008a4-8840-4c00-8abf-40df6ed11f01', '00000000-0000-4000-8000-000000002026', 'Gabriela Moldovan', null, 'Curatrice', 'Roumanie', null, 'delegation', 'aucun'),
-  ('2fed575c-eda1-4210-8736-ce9e657f8387', '00000000-0000-4000-8000-000000002026', 'Moctar Sidibé', 'Kucibok', null, 'Sénégal', null, 'delegation', 'aucun'),
-  ('22b965bd-8f53-4d21-8891-30f381f6da2f', '00000000-0000-4000-8000-000000002026', 'Balé Hormo', 'WenakLabs', null, 'Tchad', null, 'delegation', 'aucun'),
-  ('14c823aa-6a65-4e3a-82c1-f5f119d317bf', '00000000-0000-4000-8000-000000002026', 'Issa Touré', 'Azerty Agency / Metafrik', 'Fondateur', 'Sénégal', null, 'delegation', 'aucun'),
-  ('f2b3cf38-e78f-406f-86cf-23c2d9f379a4', '00000000-0000-4000-8000-000000002026', 'Louk', 'ARTEFUNKT', 'Fonds européens', null, null, 'matchmaking', 'aucun'),
-  ('84f3bda1-1776-4cd7-8167-7809dac016c0', '00000000-0000-4000-8000-000000002026', 'Paul Bouchard', 'Diversion', 'Fonds européens', null, null, 'matchmaking', 'aucun')
+insert into public.contacts (id, mission_id, name, organization, role, country, phone, website, category, status) values
+  ('7b2cdad7-bd49-47ba-8d7f-462ebd24fac2', '00000000-0000-4000-8000-000000002026', 'Hannah Bellicha', 'Institut français – Pôle Création numérique et audiovisuelle', 'Cheffe de pôle', 'France', null, null, 'organisateur', 'aucun'),
+  ('f8cf4601-590f-4c14-8e0d-264852494a7c', '00000000-0000-4000-8000-000000002026', 'Ambre Falkowiez', 'Institut français – Pôle Création numérique et audiovisuelle', 'Chargée de projet', 'France', null, null, 'organisateur', 'aucun'),
+  ('1a39e715-b167-48eb-8cbc-96cb49ee611e', '00000000-0000-4000-8000-000000002026', 'Nadia Bouissehak', 'Institut français – Pôle Création numérique et audiovisuelle', null, 'France', null, null, 'organisateur', 'aucun'),
+  ('9d01c808-df7c-49c5-8751-79070bdc1fdb', '00000000-0000-4000-8000-000000002026', 'Olivier Delpoux', 'Institut français – Pôle Création numérique et audiovisuelle', null, 'France', null, null, 'organisateur', 'aucun'),
+  ('e31e9604-64ad-446e-82c0-b52783f1331d', '00000000-0000-4000-8000-000000002026', 'Ludovic Guillot', 'Institut français', 'Directeur de la création artistique et des industries culturelles', 'France', null, null, 'organisateur', 'aucun'),
+  ('0eee4a52-3d66-4fac-844b-01c047b2c464', '00000000-0000-4000-8000-000000002026', 'Vianney Quignon', 'HACNUM', 'Coordinateur', 'France', '+33 7 77 84 11 39', null, 'organisateur', 'aucun'),
+  ('719b48bd-7022-4ed4-8741-8c8c234f20f8', '00000000-0000-4000-8000-000000002026', 'Gwladys Bernard', 'HACNUM', 'Projets internationaux', 'France', null, null, 'organisateur', 'aucun'),
+  ('d2ed7175-943a-4620-84c0-0a3275eae2a0', '00000000-0000-4000-8000-000000002026', 'Céline Berthoumieux', 'HACNUM / Chroniques', 'Déléguée générale, co-directrice de Chroniques', 'France', null, null, 'organisateur', 'aucun'),
+  ('558cb98e-d636-44de-8c83-780c022167dc', '00000000-0000-4000-8000-000000002026', 'Seda Grigoryan', 'ASA Armenia', null, 'Arménie', null, null, 'delegation', 'aucun'),
+  ('d15f6841-5c80-4028-89c8-18fe54a70593', '00000000-0000-4000-8000-000000002026', 'Junior François Adasopo', 'Lumartis', null, 'Burundi', null, null, 'delegation', 'aucun'),
+  ('1dd008a4-8840-4c00-8abf-40df6ed11f01', '00000000-0000-4000-8000-000000002026', 'Gabriela Moldovan', null, 'Curatrice', 'Roumanie', null, null, 'delegation', 'aucun'),
+  ('2fed575c-eda1-4210-8736-ce9e657f8387', '00000000-0000-4000-8000-000000002026', 'Moctar Sidibé', 'Kucibok', null, 'Sénégal', null, null, 'delegation', 'aucun'),
+  ('22b965bd-8f53-4d21-8891-30f381f6da2f', '00000000-0000-4000-8000-000000002026', 'Balé Hormo', 'WenakLabs', null, 'Tchad', null, null, 'delegation', 'aucun'),
+  ('14c823aa-6a65-4e3a-82c1-f5f119d317bf', '00000000-0000-4000-8000-000000002026', 'Issa Touré', 'Azerty Agency / Metafrik', 'Fondateur', 'Sénégal', null, 'https://www.issatoure.com', 'delegation', 'aucun'),
+  ('f2b3cf38-e78f-406f-86cf-23c2d9f379a4', '00000000-0000-4000-8000-000000002026', 'Louk', 'ARTEFUNKT', 'Fonds européens', null, null, null, 'matchmaking', 'aucun'),
+  ('84f3bda1-1776-4cd7-8167-7809dac016c0', '00000000-0000-4000-8000-000000002026', 'Paul Bouchard', 'Diversion', 'Fonds européens', null, null, null, 'matchmaking', 'aucun')
 on conflict (id) do nothing;
 
 insert into public.fiches (id, mission_id, type, title, data) values

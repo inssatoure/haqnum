@@ -155,6 +155,11 @@ export async function refreshProfiles() {
   if (data) await db().profiles.bulkPut(data as Profile[]);
   const mine = (members ?? []).find((m) => m.user_id === me?.id);
   await setMeta('my_role', mine?.role ?? null);
+  // Site web d'Issa : renseigné une seule fois si le profil n'en a pas (modifiable ensuite dans Mon QR code).
+  const mineProfile = me ? await db().profiles.get(me.id) : undefined;
+  if (mineProfile && /^issa\b/i.test(mineProfile.full_name ?? '') && !mineProfile.website) {
+    await updateMyProfile({ website: 'https://www.issatoure.com' });
+  }
 }
 
 export async function updateMyProfile(p: Partial<Profile>) {
