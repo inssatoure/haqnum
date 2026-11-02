@@ -9,7 +9,7 @@ export const runtime = 'nodejs';
 export const maxDuration = 300;
 
 interface Body {
-  task: 'synthese' | 'regards' | 'jour' | 'observateur' | 'doublons' | 'chat' | 'section';
+  task: 'synthese' | 'regards' | 'jour' | 'observateur' | 'doublons' | 'chat' | 'section' | 'condense';
   mission_id: string;
   activity_id?: string;
   day?: string;
@@ -19,6 +19,8 @@ interface Body {
   report?: 'dossier' | 'mission';
   section?: string;
   engine?: Engine;
+  text?: string;
+  words?: number;
 }
 
 export async function POST(req: Request) {
@@ -28,7 +30,21 @@ export async function POST(req: Request) {
     const b = (await req.json()) as Body;
     if (!b.mission_id) throw new HttpError(400, 'mission_id manquant');
 
-    const withImages = b.task === 'synthese' || b.task === 'regards' || (b.task === 'section' && ['catalogue', 'scenographie'].includes(b.section ?? ''));
+    // Version courte : on condense un rapport déjà écrit, sans relire toutes les données.
+    if (b.task === 'condense') {
+      if (!b.text || b.text.length < 200) throw new HttpError(400, 'Rapport vide');
+      const words = Math.min(Math.max(b.words ?? 900, 300), 2500);
+      const r = await askAI({
+        engine: b.engine,
+        system: BASE_SYSTEM,
+        instruction: `${TASKS.condense}\nLongueur visée : environ ${words} mots.\n\nRAPPORT À CONDENSER :\n\n${b.text}`,
+        effort: 'medium',
+        maxTokens: 12000,
+      });
+      return Response.json({ markdown: r.text, json: null, model: r.model, engine: r.engine, stats: null });
+    }
+
+    const withImages = b.task === 'synthese' || b.task === 'regards' || (b.task === 'section' && ['catalogue', 'scenographie', 'oeuvres'].includes(b.section ?? ''));
     const corpus = await buildCorpus(
       sb,
       { mission_id: b.mission_id, activity_ids: b.activity_id ? [b.activity_id] : undefined, day: b.day, author_id: b.author_id },

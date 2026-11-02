@@ -4,7 +4,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { Archive, FileText, Printer } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { DOSSIER_SECTIONS, MISSION_SECTIONS } from '@/lib/ai-prompts';
-import { generateSection, runAnalysis } from '@/lib/ai-client';
+import { condenseReport, generateSection, runAnalysis } from '@/lib/ai-client';
 import { db } from '@/lib/db';
 import { downloadText, exportDocx, exportJson, exportZip } from '@/lib/export';
 import { create, update } from '@/lib/repo';
@@ -86,7 +86,7 @@ export default function Reports() {
         <Card>
           <p className="font-semibold">Rapport de mission</p>
           <p className="mb-2 text-sm text-nuit-400">Pour l’Institut français du Sénégal et l’ambassade de France.</p>
-          <Btn className="w-full" disabled={!!busy} onClick={() => run('Rapport de mission', () => multiSection('mission', 'Rapport de mission — MIN 2026 / Chroniques', who || undefined))}>Générer</Btn>
+          <Btn className="w-full" disabled={!!busy} onClick={() => run('Rapport de mission', () => multiSection('mission', 'Rapport de mission d\'observation — Biennale Chroniques et MIN 2026', who || undefined))}>Générer</Btn>
         </Card>
         <Card>
           <p className="font-semibold">Dossier de reproduction de la Biennale</p>
@@ -154,6 +154,20 @@ function ReportItem({ r, open, onToggle }: { r: Report; open: boolean; onToggle:
               }
             }}><FileText size={18} /> Word</Btn>
             <Btn tone="nuit" onClick={() => printReport(r)}><Printer size={18} /> PDF</Btn>
+            {(r.kind === 'mission' || r.kind === 'dossier') && (
+              <Btn tone="nuit" disabled={busy} onClick={async () => {
+                setBusy(true);
+                try {
+                  const short = await condenseReport(r.markdown ?? '', 900);
+                  await create('reports', { kind: 'court', title: `Version courte — ${r.title}`, markdown: `# Version courte — ${r.title}\n\n${short}`, params: { source: r.id } });
+                  toast('Version courte créée (en bas de la liste)');
+                } catch (e: any) {
+                  toast(e.message);
+                } finally {
+                  setBusy(false);
+                }
+              }}>Version courte</Btn>
+            )}
             <Btn tone="ghost" onClick={() => downloadText(`${(r.title ?? 'rapport').slice(0, 50)}.md`, r.markdown ?? '', 'text/markdown')}>Markdown</Btn>
           </div>
           <div className="text-sm"><Markdown text={r.markdown ?? ''} /></div>

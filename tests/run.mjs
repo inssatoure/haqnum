@@ -325,6 +325,45 @@ await step('Tableau du jour (couverture) et carte', async () => {
   await shot('14-carte');
 });
 
+if (process.env.DOSSIER_ZIP) {
+  await step('Import d’un dossier de suivi (zip) : rendez-vous, contacts, notes, sans doublons', async () => {
+    const count = (store) => page.evaluate((st) => new Promise((res) => {
+      const o = indexedDB.open('min-observateur');
+      o.onsuccess = () => {
+        const q = o.result.transaction(st).objectStore(st).getAll();
+        q.onsuccess = () => res(q.result.filter((r) => !r.deleted_at).map((r) => r.title ?? r.name ?? r.body.slice(0, 60)));
+      };
+    }), store);
+    const before = { c: (await count('contacts')).length, n: (await count('notes')).length, a: (await count('activities')).length };
+    await go('#/importer-dossier');
+    await page.locator('input[type=file][accept^=".zip"]').setInputFiles(process.env.DOSSIER_ZIP);
+    await page.getByText('Prêt à importer').waitFor({ timeout: 20000 });
+    await shot('15-import-dossier-apercu');
+    await page.getByRole('button', { name: 'Importer', exact: true }).click();
+    await page.getByText('Import terminé').waitFor({ timeout: 30000 });
+    await shot('16-import-dossier-fini');
+    const after = { c: await count('contacts'), n: await count('notes'), a: await count('activities') };
+    const addedC = after.c.length - before.c, addedN = after.n.length - before.n, addedA = after.a.length - before.a;
+    console.log(`   ajoutés : ${addedA} rendez-vous, ${addedC} contacts, ${addedN} notes`);
+    if (addedC < 30 || addedN < 15 || addedA < 10) throw new Error(`import incomplet : ${addedA}/${addedC}/${addedN}`);
+    if (!after.a.some((t) => /Rendez-vous : Ikbal Ben Khalfallah/.test(t))) throw new Error('rendez-vous Ikbal absent');
+    if (after.n.some((t) => /Les enregistrements/i.test(t))) throw new Error('note technique importée');
+    // 2e import : aucun doublon
+    await go('#/importer-dossier');
+    await page.locator('input[type=file][accept^=".zip"]').setInputFiles(process.env.DOSSIER_ZIP);
+    await page.getByText('Prêt à importer').waitFor();
+    await page.getByRole('button', { name: 'Importer', exact: true }).click();
+    await page.getByText('Import terminé').waitFor({ timeout: 30000 });
+    const again = { c: (await count('contacts')).length, n: (await count('notes')).length, a: (await count('activities')).length };
+    if (again.c !== after.c.length || again.n !== after.n.length || again.a !== after.a.length) throw new Error(`doublons : ${JSON.stringify(again)} vs ${after.c.length}/${after.n.length}/${after.a.length}`);
+    // Un rendez-vous apparaît bien au programme de l'agenda
+    await go('#/programme');
+    await page.getByRole('button', { name: /Jeu\. 29/ }).click();
+    await page.getByText('Rendez-vous : Ikbal Ben Khalfallah').first().waitFor();
+    await shot('17-programme-avec-rdv');
+  });
+}
+
 await step('Exports Word (.docx) et archive ZIP des originaux', async () => {
   await go('#/rapports');
   const [z] = await Promise.all([page.waitForEvent('download', { timeout: 60000 }), page.getByRole('button', { name: /Archive ZIP/ }).click()]);

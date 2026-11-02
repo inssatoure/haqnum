@@ -168,6 +168,12 @@ export async function generateSection(report: 'dossier' | 'mission', section: st
   return r.markdown;
 }
 
+/** Version courte d'un rapport déjà généré. */
+export async function condenseReport(markdown: string, words = 900) {
+  const r = await api<{ markdown: string; model: string }>('/api/ai', { task: 'condense', mission_id: MISSION_ID, text: markdown, words });
+  return r.markdown;
+}
+
 export async function readBusinessCard(file: Blob): Promise<Record<string, string>> {
   const b64 = await blobToBase64(file);
   return api('/api/ai/card', { image: b64, media_type: file.type || 'image/jpeg' });

@@ -7,3 +7,4 @@ next-env.d.ts
 test-results
 tests/out
 tests/fixtures/qr.y4m
+tests/fixtures/dossier*.zip
