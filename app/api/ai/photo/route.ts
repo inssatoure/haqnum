@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       instruction:
         'Décris cette photo en français, en 2 à 4 phrases : ce qu’on voit (œuvre, dispositif, lieu, personnes en général sans les identifier, public). Recopie fidèlement tout texte lisible (titre, cartel, panneau, nom de projet). Si c’est une carte de visite ou un document, recopie les informations. Pas d’introduction.',
       effort: 'low',
-      maxTokens: 800,
+      maxTokens: 3000,
     });
     return Response.json({ description: text.trim() });
   } catch (e) {
