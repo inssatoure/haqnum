@@ -23,6 +23,7 @@ export default function Analyze() {
 
   const run = async (label: string, items: { id: string; title?: string | null }[], fn: (id: string) => Promise<unknown>) => {
     const bad: string[] = [];
+    setErrs([]);
     for (let i = 0; i < items.length; i++) {
       setBusy(`${label} ${i + 1}/${items.length}…`);
       try {

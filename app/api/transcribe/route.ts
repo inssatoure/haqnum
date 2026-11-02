@@ -29,7 +29,14 @@ export async function POST(req: Request) {
       name = `audio.${ext}`;
     } else {
       // Vidéo, .mov, ou gros fichier : on extrait l'audio de la fenêtre demandée.
-      const buf = await audioWindow(url, body.start ?? 0, body.duration ?? 600);
+      let buf: Buffer;
+      try {
+        buf = await audioWindow(url, body.start ?? 0, body.duration ?? 600);
+      } catch (e: any) {
+        // Vidéo sans piste son : rien à transcrire, ce n'est pas une erreur.
+        if (/no decoder found|does not contain any stream|Output file #0 does not contain|Stream map|matches no streams/i.test(String(e?.message ?? e))) return Response.json({ text: '', segments: [] });
+        throw e;
+      }
       if (buf.length < 1000) return Response.json({ text: '', segments: [] });
       file = new Blob([new Uint8Array(buf)], { type: 'audio/mpeg' });
       name = 'audio.mp3';
