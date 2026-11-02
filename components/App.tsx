@@ -18,6 +18,7 @@ import ActivityDetail from './screens/ActivityDetail';
 import Debate from './screens/Debate';
 import ImportScreen from './screens/ImportScreen';
 import ImportDossier from './screens/ImportDossier';
+import Analyze from './screens/Analyze';
 import Capture from './screens/Capture';
 import Contacts from './screens/Contacts';
 import ContactDetail from './screens/ContactDetail';
@@ -132,6 +133,7 @@ function Screen({ name, id, query }: { name: string; id?: string; query: URLSear
     case 'activite': return <ActivityDetail id={id!} />;
     case 'debat': return <Debate resumeId={query.get('reprendre') ?? undefined} activityId={query.get('activite') ?? undefined} />;
     case 'importer': return <ImportScreen activityId={query.get('activite') ?? undefined} />;
+    case 'analyser': return <Analyze />;
     case 'importer-dossier': return <ImportDossier />;
     case 'capturer': return <Capture experience={query.get('experience') === '1'} activityId={query.get('activite') ?? undefined} />;
     case 'contacts': return <Contacts />;

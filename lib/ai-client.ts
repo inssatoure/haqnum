@@ -179,6 +179,20 @@ export async function readBusinessCard(file: Blob): Promise<Record<string, strin
   return api('/api/ai/card', { image: b64, media_type: file.type || 'image/jpeg' });
 }
 
+/** Décrit une photo avec l'IA et enregistre la description (visible ensuite dans les rapports). */
+export async function describePhoto(mediaId: string) {
+  const m = await db().media.get(mediaId);
+  if (!m) throw new Error('Média introuvable');
+  await ensureUploaded(m);
+  const part = m.parts[0];
+  const heic = /heic|heif/i.test(part?.mime ?? '') || /\.(heic|heif)$/i.test(part?.path ?? '');
+  const path = heic && m.thumb_path ? m.thumb_path : part?.path;
+  if (!path) throw new Error('Pas de fichier');
+  const r = await api<{ description: string }>('/api/ai/photo', { path, mime: heic ? 'image/jpeg' : part.mime });
+  await update('media', m.id, { description: r.description });
+  return r.description;
+}
+
 export function blobToBase64(b: Blob): Promise<string> {
   return new Promise((res, rej) => {
     const r = new FileReader();

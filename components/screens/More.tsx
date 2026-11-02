@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, BookOpen, FolderArchive, Bot, FileDown, FlaskConical, Images, LayoutDashboard, Map, Receipt, Settings, Upload } from 'lucide-react';
+import { ArrowRight, BookOpen, FolderArchive, Sparkles, Bot, FileDown, FlaskConical, Images, LayoutDashboard, Map, Receipt, Settings, Upload } from 'lucide-react';
 import { IS_SANDBOX, setSandbox } from '@/lib/config';
 import { go } from '../hooks';
 import { Card, IconCircle, Title } from '../ui';
@@ -13,6 +13,7 @@ const ITEMS = [
   { k: 'analyste', l: 'Agent analyste', d: 'Posez vos questions sur les données', i: Bot },
   { k: 'rapports', l: 'Rapports et exports', d: 'Jour, mission, dossier de reproduction, Word, PDF, ZIP', i: FileDown },
   { k: 'importer', l: 'Importer', d: 'Dictaphone, galerie', i: Upload },
+  { k: 'analyser', l: 'Analyser avec l’IA', d: 'Transcrire les sons, décrire les photos', i: Sparkles },
   { k: 'importer-dossier', l: 'Importer un dossier', d: 'Contacts, notes et rendez-vous (.zip)', i: FolderArchive },
   { k: 'depenses', l: 'Dépenses personnelles', d: 'Montant, catégorie, reçu', i: Receipt },
   { k: 'reglages', l: 'Réglages', d: 'Profil, stockage, synchronisation', i: Settings },
