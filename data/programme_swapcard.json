@@ -1,0 +1,1334 @@
+[
+ {
+  "date": "2026-10-28",
+  "start": "08:15",
+  "end": "09:30",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette Aix-en-Provence > Avignon",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "10:00",
+  "end": "10:30",
+  "venue": "Avignon • Villa Créative",
+  "title": "Accueil - Café",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "10:30",
+  "end": "10:40",
+  "venue": "Avignon • Villa Créative",
+  "title": "Mot de bienvenue à la Villa Créative",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "10:40",
+  "end": "11:30",
+  "venue": "Avignon • Villa Créative",
+  "title": "Présentations de projets : l’écosystème créatif avignonnais",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "10:40",
+  "end": "12:15",
+  "venue": "Avignon • Grenier à Sel",
+  "title": "Visite de l’exposition (Dé)jouer les mondes au Grenier à Sel",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "11:30",
+  "end": "12:30",
+  "venue": "Avignon • Villa Créative",
+  "title": "Networking",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "12:30",
+  "end": "13:30",
+  "venue": "Avignon • Villa Créative",
+  "title": "Déjeuner",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "13:50",
+  "end": "14:50",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette Avignon > Arles",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "15:00",
+  "end": "16:30",
+  "venue": "Arles",
+  "title": "Visite privée des expositions d’Octobre Numérique",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "16:45",
+  "end": "17:00",
+  "venue": "Arles • Quiqueran de Beaujeu",
+  "title": "Mot d’accueil",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "17:10",
+  "end": "18:30",
+  "venue": "Arles • Quiqueran de Beaujeu",
+  "title": "Matchmaking & Présentations de Projets",
+  "speakers": [],
+  "kind": "matchmaking",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "18:30",
+  "end": "19:50",
+  "venue": "Arles",
+  "title": "Cocktail et networking",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "18:30",
+  "end": "18:50",
+  "venue": "Arles",
+  "title": "Prises de parole institutionnelles",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-28",
+  "start": "20:10",
+  "end": "21:10",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette Arles > Aix-en-Provence",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "08:30",
+  "end": "11:00",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette Aix-en-Provence (Gare routière) > 6MIC",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "09:00",
+  "end": "09:30",
+  "venue": "6MIC • Hall",
+  "title": "Accueil - Café",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "09:30",
+  "end": "09:50",
+  "venue": "6MIC • Grande Salle",
+  "title": "Mot d’accueil",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "09:50",
+  "end": "10:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "Ouverture",
+  "speakers": [
+   {
+    "name": "Tania de Montaigne",
+    "org": "Autrice et Présidente de la commission immersive du CNC"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "10:30",
+  "end": "12:30",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Espace démo Aix-Marseille-Université • Musée en Ville",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "10:30",
+  "end": "12:30",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Espace démo Aix-Marseille-Université • SilVR games",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "10:30",
+  "end": "13:00",
+  "venue": "6MIC • Studios",
+  "title": "Feedback Session (uniquement pour les personnes convoquées)",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "10:30",
+  "end": "11:00",
+  "venue": "6MIC • Club",
+  "title": "Flash back : 10 ans de structuration de l’immersif",
+  "speakers": [
+   {
+    "name": "Martin Posta",
+    "org": "Signal Festival"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "10:30",
+  "end": "11:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "Ni utopie ni dystopie : bienvenue dans l’imaginaire Solar Punk",
+  "speakers": [
+   {
+    "name": "Camilla Colombo",
+    "org": "OHME"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "10:30",
+  "end": "12:30",
+  "venue": "6MIC • espace BtoB (Hall)",
+  "title": "Speed Meeting",
+  "speakers": [],
+  "kind": "matchmaking",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "11:00",
+  "end": "11:30",
+  "venue": "6MIC • Club",
+  "title": "Algorithmes queers : perturber les technologies, imaginer nos futurs",
+  "speakers": [
+   {
+    "name": "Guillaume Chevillon",
+    "org": "ESSEC Business School"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "11:00",
+  "end": "11:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "Résidences artistiques, aux racines de la transition",
+  "speakers": [
+   {
+    "name": "Hannah Loué",
+    "org": "Institut français"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "11:30",
+  "end": "12:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "Une transition numérique, oui ! Mais avec quel argent ?",
+  "speakers": [
+   {
+    "name": "Stéphane Segreto-Aguilar",
+    "org": "Relais Culture Europe"
+   },
+   {
+    "name": "Fabio Trotabas",
+    "org": "Culturing Company"
+   },
+   {
+    "name": "Elsa Ferreira",
+    "org": "Journaliste - modératrice"
+   },
+   {
+    "name": "Jean-Gabriel Minel",
+    "org": "DGMIC - Ministère de la Culture"
+   },
+   {
+    "name": "Anne Duncan",
+    "org": "British Council"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "12:30",
+  "end": "13:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "“J’ai testé pour vous” : débrancher un lieu culturel des GAFAM",
+  "speakers": [
+   {
+    "name": "Jérôme Villeneuve",
+    "org": "Hexagone Scène nationale"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "12:30",
+  "end": "14:00",
+  "venue": "6MIC • Hall",
+  "title": "Déjeuner",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "12:30",
+  "end": "13:00",
+  "venue": "6MIC • Club",
+  "title": "L’évaluation sensible, une alternative aux KPI de la culture",
+  "speakers": [
+   {
+    "name": "Edina Soldo",
+    "org": "Aix-Marseille Université"
+   },
+   {
+    "name": "Djelloul Arezki",
+    "org": "Aix-Marseille Université - Chaire Organisations et Territoires des Arts de la Culture et de la Création"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "13:30",
+  "end": "14:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "Aides à la création en environnement numérique. Suivez le guide !",
+  "speakers": [
+   {
+    "name": "Vianney Quignon",
+    "org": "HACNUM"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "13:30",
+  "end": "14:30",
+  "venue": "6MIC • Club",
+  "title": "L’abécédaire des transitions — Pitchs",
+  "speakers": [
+   {
+    "name": "Yue Cheng",
+    "org": "Artiste indépendante"
+   },
+   {
+    "name": "Olivier Bémer",
+    "org": "Artiste indépendant"
+   },
+   {
+    "name": "Mounir Ayache",
+    "org": "Artiste indépendant"
+   },
+   {
+    "name": "Lara Tabet",
+    "org": "Artiste indépendante"
+   },
+   {
+    "name": "Noemi Iglesias Barrios",
+    "org": "Artiste indépendante"
+   },
+   {
+    "name": "Tom Hebrard",
+    "org": "Oyé Visual Art Label"
+   },
+   {
+    "name": "Manon Lefebure",
+    "org": "Artiste indépendante"
+   },
+   {
+    "name": "Shandor Chury",
+    "org": "OVVO Studio"
+   },
+   {
+    "name": "Cecilie Waagner Falkenstrøm",
+    "org": "ARTificial Mind"
+   },
+   {
+    "name": "Stéphanie Roland",
+    "org": "Artiste indépendante"
+   },
+   {
+    "name": "Nawelle Aineche",
+    "org": "Compagnie Tanquieta"
+   },
+   {
+    "name": "HsienYu Cheng",
+    "org": null
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "14:00",
+  "end": "17:00",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Corner démo TRAVERSE - Réseau de diffusion d’œuvres immersives.",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "14:00",
+  "end": "17:00",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Espace démo Aix-Marseille-Université • Musée en Ville",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "14:00",
+  "end": "17:00",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Espace démo Aix-Marseille-Université • SilVR games",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "14:00",
+  "end": "14:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "La Méditerranée, un territoire des transitions artistiques",
+  "speakers": [
+   {
+    "name": "Eva Nguyen Binh",
+    "org": "Institut français"
+   },
+   {
+    "name": "Julie Kretzschmar",
+    "org": "Institut français"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "14:00",
+  "end": "15:00",
+  "venue": "6MIC • Studios",
+  "title": "Les opportunités de financements européens pour vos projets",
+  "speakers": [
+   {
+    "name": "Fabien Fabre",
+    "org": "Unfold"
+   },
+   {
+    "name": "Ina Studenroth",
+    "org": "Ina Studenroth Conseil"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "14:00",
+  "end": "15:00",
+  "venue": "6MIC • espace BtoB (Hall)",
+  "title": "Speed Meeting",
+  "speakers": [],
+  "kind": "matchmaking",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "14:30",
+  "end": "15:00",
+  "venue": "6MIC • Club",
+  "title": "L’IA dans l’art : entre création, innovation et jeux de pouvoir",
+  "speakers": [
+   {
+    "name": "Baptiste Caramiaux",
+    "org": "CNRS / Sorbonne Université"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "14:30",
+  "end": "15:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "PEPR ICCARE, la recherche qui donne des ailes aux ICC",
+  "speakers": [
+   {
+    "name": "Solveig Serre",
+    "org": "CNRS"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "15:00",
+  "end": "15:30",
+  "venue": "6MIC • Club",
+  "title": "Business as (un)usual : l’environnement au cœur de son activité",
+  "speakers": [
+   {
+    "name": "Juliette Bibasse",
+    "org": "Studio Lemercier / Solar Lab"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "15:00",
+  "end": "15:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "Découvrabilité, les nouveaux gardiens de la culture",
+  "speakers": [
+   {
+    "name": "Marie Picard",
+    "org": "Radio Grenouille / Culture Pixelle"
+   },
+   {
+    "name": "Emmanuel Vergès",
+    "org": "Culture Pixelle"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "15:05",
+  "end": "16:00",
+  "venue": "6MIC • Studios",
+  "title": "Meet the UK delegation",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "15:30",
+  "end": "16:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "Bye bye écologie… L’environnement est-il toujours une préoccupation ?",
+  "speakers": [
+   {
+    "name": "Annelaure Belloc",
+    "org": "Stereolux"
+   },
+   {
+    "name": "Elsa Ferreira",
+    "org": "Journaliste - modératrice"
+   },
+   {
+    "name": "Guilhem Chabas",
+    "org": "Ministère de la Culture (DGCA)"
+   },
+   {
+    "name": "Allison Moore",
+    "org": null
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "16:00",
+  "end": "19:00",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette 6MIC > Aix-en-Provence (Gare routière)",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "16:30",
+  "end": "17:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "Web 1, 2, 3… Partez",
+  "speakers": [
+   {
+    "name": "Albertine Meunier",
+    "org": "Artiste indépendante"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "18:00",
+  "end": "20:30",
+  "venue": "Aix en Provence",
+  "title": "Cocktail et networking",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-29",
+  "start": "21:00",
+  "end": "22:00",
+  "venue": "Aix en Provence",
+  "title": "Spectacle immersif d’Etienne Guiol - A Salty protest #2",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "08:30",
+  "end": "11:00",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette Aix-en-Provence (Gare routière) > 6MIC",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "09:30",
+  "end": "10:00",
+  "venue": "6MIC • Hall",
+  "title": "Accueil - Café",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "09:30",
+  "end": "12:30",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Espace démo Aix-Marseille-Université • Musée en Ville",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "09:30",
+  "end": "12:30",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Espace démo Aix-Marseille-Université • SilVR games",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "09:30",
+  "end": "10:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "Revue de presse",
+  "speakers": [
+   {
+    "name": "Thomas Beaufils",
+    "org": "Absurdi.tech"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "10:00",
+  "end": "11:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "Expérimental et artistique : le jeu vidéo en marge des mass media",
+  "speakers": [
+   {
+    "name": "Emi Kusano",
+    "org": "Artiste indépendante"
+   },
+   {
+    "name": "Masahiko Murakami",
+    "org": "ars•bit / 404 Not Found / BitSummit / Skeleton Crew Studio"
+   },
+   {
+    "name": "Takakura Kazuki",
+    "org": "Artiste indépendant"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "10:00",
+  "end": "12:30",
+  "venue": "6MIC • Studios",
+  "title": "Feedback Session (uniquement pour les personnes convoquées)",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "10:00",
+  "end": "10:30",
+  "venue": "6MIC • Club",
+  "title": "Permacomputing... Et si on cultivait la résilience numérique ?",
+  "speakers": [
+   {
+    "name": "Fabian van Sluijs",
+    "org": "Creative Coding Utrecht"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "10:30",
+  "end": "11:00",
+  "venue": "6MIC • Club",
+  "title": "Après 10 ans de Science+Tech+ARTS, un programme en transition ?",
+  "speakers": [
+   {
+    "name": "Aurélie Delater",
+    "org": "Noisette"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "11:00",
+  "end": "11:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "La donnée, un actif stratégique pour les institutions culturelles",
+  "speakers": [
+   {
+    "name": "Isabelle Nyffenegger",
+    "org": "Bibliothèque nationale de France"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "11:00",
+  "end": "11:30",
+  "venue": "6MIC • Club",
+  "title": "La scène jouable : nouveaux espaces virtuels pour le spectacle vivant",
+  "speakers": [
+   {
+    "name": "Cyrielle Garson",
+    "org": "Avignon Université / Institut universitaire de France"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "11:00",
+  "end": "12:30",
+  "venue": "6MIC • espace BtoB (Hall)",
+  "title": "Speed Meeting",
+  "speakers": [],
+  "kind": "matchmaking",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "11:30",
+  "end": "12:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "L’avenir de la musique passe-t-il par l’immersif ?",
+  "speakers": [
+   {
+    "name": "Elsa Ferreira",
+    "org": "Journaliste - modératrice"
+   },
+   {
+    "name": "Étienne Guiol",
+    "org": "Studio BK / Immersive Opera"
+   },
+   {
+    "name": "Maud Clavier",
+    "org": null
+   },
+   {
+    "name": "Rodrig de Sa",
+    "org": "360Prod"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "11:30",
+  "end": "12:30",
+  "venue": "6MIC • Studios",
+  "title": "Les opportunités de financements européens pour vos projets",
+  "speakers": [
+   {
+    "name": "Fabien Fabre",
+    "org": "Unfold"
+   },
+   {
+    "name": "Ina Studenroth",
+    "org": "Ina Studenroth Conseil"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "12:30",
+  "end": "13:10",
+  "venue": "6MIC • Club",
+  "title": "Art & soin : le numérique qui relie",
+  "speakers": [
+   {
+    "name": "Nadia Coliac Merad",
+    "org": "Institut de NeuroPhysiopathologie, AMU CNRS UMR 7051"
+   },
+   {
+    "name": "Jean-Jacques Temprado",
+    "org": "Institut des Sciences du Mouvement"
+   },
+   {
+    "name": "Remy Casanova",
+    "org": "CRVM - Aix-Marseille Université"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "12:30",
+  "end": "14:00",
+  "venue": "6MIC • Hall",
+  "title": "Déjeuner “British Council”",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "12:30",
+  "end": "13:10",
+  "venue": "6MIC • Grande Salle",
+  "title": "Le Royaume-Uni en territoires immersifs",
+  "speakers": [
+   {
+    "name": "David Massey",
+    "org": "Wales Millennium Centre"
+   },
+   {
+    "name": "Deepa Mann-Kler",
+    "org": "Belfast XR Festival / Neon"
+   },
+   {
+    "name": "Mark Atkin",
+    "org": "Crossover Labs"
+   },
+   {
+    "name": "Cathie Boyd",
+    "org": "Cryptic / Sonica Glasgow"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "13:30",
+  "end": "14:30",
+  "venue": "6MIC • Club",
+  "title": "L’abécédaire des transitions — Pitchs",
+  "speakers": [
+   {
+    "name": "Olivain Porry",
+    "org": "Artiste indépendant"
+   },
+   {
+    "name": "Etienne Rey",
+    "org": "Ondes Parallèles"
+   },
+   {
+    "name": "Emmy Ols",
+    "org": "Control Z Collective"
+   },
+   {
+    "name": "Aram Kebabdjian",
+    "org": "Artiste indépendant"
+   },
+   {
+    "name": "Stéfane Perraud",
+    "org": "Artiste indépendant"
+   },
+   {
+    "name": "Francesco Federici",
+    "org": "Aix Marseille Université"
+   },
+   {
+    "name": "Paolo Almario",
+    "org": "Artiste indépendant"
+   },
+   {
+    "name": "Adelin Schweitzer",
+    "org": "Les laboratoires deletere"
+   },
+   {
+    "name": "Filipe Vilas-Boas",
+    "org": "Artiste indépendant"
+   },
+   {
+    "name": "Gaëtan Parseihian",
+    "org": "Les laboratoires deletere"
+   },
+   {
+    "name": "Dorian Rigal",
+    "org": "Minuit"
+   },
+   {
+    "name": "Marie Point",
+    "org": "Dark Euphoria"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "13:30",
+  "end": "14:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "L’Europe, unie dans la diversité culturelle et numérique",
+  "speakers": [
+   {
+    "name": "Vincent Mathiot",
+    "org": "Correspondances Digitales"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "14:00",
+  "end": "17:00",
+  "venue": "Aix en Provence",
+  "title": "Accès en avant première aux expositions",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "14:00",
+  "end": "15:30",
+  "venue": "6MIC • Studios",
+  "title": "Cartographie de l’écosystème de l’art numérique",
+  "speakers": [
+   {
+    "name": "Aurélie Delater",
+    "org": "Noisette"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "14:00",
+  "end": "16:00",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Corner démo TRAVERSE - Réseau de diffusion d’œuvres immersives.",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "14:00",
+  "end": "16:00",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Espace démo Aix-Marseille-Université • Musée en Ville",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "14:00",
+  "end": "16:00",
+  "venue": "6MIC • Espaces Démo (hall)",
+  "title": "Espace démo Aix-Marseille-Université • SilVR games",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "14:00",
+  "end": "14:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "La low tech, un levier insoupçonné pour l’indépendance technologique",
+  "speakers": [
+   {
+    "name": "Inès Selmane",
+    "org": "Université Paris 8 / CNAM / Pôle Pixel"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "14:30",
+  "end": "15:00",
+  "venue": "6MIC • Grande Salle",
+  "title": "Et après ? Du prototype numérique au marché",
+  "speakers": [
+   {
+    "name": "Marek Blottière",
+    "org": "Société des arts technologiques (SAT)"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "14:30",
+  "end": "15:00",
+  "venue": "6MIC • Club",
+  "title": "La stratégie de plaidoyer culturel comme moteur de la transition",
+  "speakers": [
+   {
+    "name": "Seda Grigoryan",
+    "org": "ASA Armenia"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "15:00",
+  "end": "15:30",
+  "venue": "6MIC • Grande Salle",
+  "title": "Création numérique au Maroc : l’art de transmettre",
+  "speakers": [
+   {
+    "name": "Marwane Fachane",
+    "org": "Fondation Hiba"
+   },
+   {
+    "name": "Youssef El Idrissi",
+    "org": "Dabdabat"
+   },
+   {
+    "name": "Mouad Meziaty",
+    "org": "Institut français du Maroc"
+   },
+   {
+    "name": "Khouloud Berrahaoui",
+    "org": "Rabat Région Patrimoine Historique"
+   },
+   {
+    "name": "Mehdi Zouak",
+    "org": "Institut National des Beaux-Arts de Tétouan"
+   },
+   {
+    "name": "Ghita Amrati",
+    "org": "Artcoustic"
+   },
+   {
+    "name": "Saad Elbaraka",
+    "org": "Independent"
+   },
+   {
+    "name": "Saad Lahjouji",
+    "org": "Tendansia"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "15:00",
+  "end": "15:30",
+  "venue": "6MIC • Club",
+  "title": "L’art contre le techno-fascisme",
+  "speakers": [
+   {
+    "name": "Paolo Cirio",
+    "org": "Artiste indépendant"
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "15:30",
+  "end": "16:15",
+  "venue": "6MIC • Grande Salle",
+  "title": "L’art pour (dé)construire nos imaginaires",
+  "speakers": [
+   {
+    "name": "Laura Mannelli",
+    "org": null
+   }
+  ],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-30",
+  "start": "16:00",
+  "end": "19:00",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette 6MIC > Aix-en-Provence (Gare routière)",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "09:00",
+  "end": "10:00",
+  "venue": "Aix en Provence",
+  "title": "Bus - Navette Aix-en-Provence > Friche la Belle de Mai",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "10:00",
+  "end": "12:00",
+  "venue": "Marseille • La Friche la Belle de Mai",
+  "title": "Accueil et visites des expositions de la Friche la Belle de Mai",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "12:00",
+  "end": "14:00",
+  "venue": "Marseille • La Friche la Belle de Mai",
+  "title": "Déjeuner aux Grandes Tables de la Friche",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "14:00",
+  "end": "14:30",
+  "venue": "Marseille • La Friche la Belle de Mai",
+  "title": "Bus - Navette Friche la Belle de Mai > Citadelle",
+  "speakers": [],
+  "kind": "session",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "14:15",
+  "end": "15:15",
+  "venue": "Marseille • Vieille Charité",
+  "title": "Visite de l’exposition Souffles terrestres à la Vieille Charité",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": true
+ },
+ {
+  "date": "2026-10-31",
+  "start": "15:00",
+  "end": "15:15",
+  "venue": "Marseille • La Citadelle",
+  "title": "Accueil à La Citadelle",
+  "speakers": [
+   {
+    "name": "Vianney Quignon",
+    "org": "HACNUM"
+   },
+   {
+    "name": "Céline Berthoumieux",
+    "org": "Chroniques"
+   },
+   {
+    "name": "Camille Lopato",
+    "org": "Diversion"
+   }
+  ],
+  "kind": "session",
+  "cancelled": true
+ },
+ {
+  "date": "2026-10-31",
+  "start": "15:15",
+  "end": "16:00",
+  "venue": "Marseille • La Citadelle",
+  "title": "Séance VR TRAVERSE : Artou & L’Île des morts",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "15:15",
+  "end": "16:00",
+  "venue": "Marseille • La Citadelle",
+  "title": "Visite guidée de La Citadelle",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "15:30",
+  "end": "16:00",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette Vieille Charité > La Citadelle",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": true
+ },
+ {
+  "date": "2026-10-31",
+  "start": "16:05",
+  "end": "16:50",
+  "venue": "Marseille • La Citadelle",
+  "title": "Séance VR TRAVERSE : Artou & L’Île des morts",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "16:05",
+  "end": "16:50",
+  "venue": "Marseille • La Citadelle",
+  "title": "Visite guidée de La Citadelle",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "16:55",
+  "end": "17:40",
+  "venue": "Marseille • La Citadelle",
+  "title": "Séance VR TRAVERSE : Artou & L’Île des morts",
+  "speakers": [],
+  "kind": "visite",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "17:30",
+  "end": "18:00",
+  "venue": "Marseille • La Citadelle",
+  "title": "Rencontre et échanges : verre et networking",
+  "speakers": [],
+  "kind": "convivial",
+  "cancelled": false
+ },
+ {
+  "date": "2026-10-31",
+  "start": "18:15",
+  "end": "19:15",
+  "venue": "Repas & Transports",
+  "title": "Bus - Navette La Citadelle > Aix-en-Provence",
+  "speakers": [],
+  "kind": "transport",
+  "cancelled": false
+ }
+]
